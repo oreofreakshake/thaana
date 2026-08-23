@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dv-select",
+  "title": "Dhivehi Select",
+  "description": "A shadcn Select with an overridable RTL direction default for Dhivehi interfaces.",
+  "registryDependencies": [
+    "select"
+  ],
+  "files": [
+    {
+      "path": "registry/components/dv-select.tsx",
+      "content": "import type * as React from \"react\"\n\nimport { Select } from \"@/components/ui/select\"\n\ntype DvSelectProps = React.ComponentProps<typeof Select>\n\nfunction DvSelect({ dir = \"rtl\", ...props }: DvSelectProps) {\n  return <Select dir={dir} {...props} />\n}\n\nexport { DvSelect, type DvSelectProps }\n",
+      "type": "registry:component",
+      "target": "@components/dv-select.tsx"
+    }
+  ],
+  "type": "registry:component"
+}
