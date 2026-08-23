@@ -108,7 +108,7 @@ export function HomePage() {
             </a>
           </div>
         </div>
-    </section>
+      </section>
 
       <section className="px-4 sm:px-6">
         <div className="mx-auto max-w-[82rem]">
