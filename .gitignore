@@ -1,0 +1,26 @@
+# Dependencies and package-manager caches
+node_modules/
+.pnpm-store/
+
+# Tool caches and temporary files
+*.tsbuildinfo
+.tmp/
+
+# Test output
+coverage/
+
+# Local environment files (keep shareable examples)
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Local editor and operating-system files
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Keep public/r tracked: it contains the generated shadcn registry payloads.

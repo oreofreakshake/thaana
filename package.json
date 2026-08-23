@@ -1,0 +1,32 @@
+{
+  "name": "thaana",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Dhivehi-first shadcn registry for React and TypeScript projects.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "shadcn build",
+    "check": "biome check .",
+    "check:write": "biome check --write .",
+    "format": "biome format --write .",
+    "lint": "biome lint .",
+    "registry:validate": "shadcn registry validate ./registry.json",
+    "typecheck": "tsc --noEmit",
+    "validate": "pnpm check && pnpm typecheck && pnpm registry:validate && pnpm build"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "react": "^19.1.1",
+    "tailwind-merge": "^3.3.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.10",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.10",
+    "shadcn": "^4.16.2",
+    "tailwindcss": "^4.1.12",
+    "typescript": "^5.9.2"
+  },
+  "packageManager": "pnpm@10.17.1"
+}

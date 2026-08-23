@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dv-input",
+  "title": "Dhivehi Input",
+  "description": "A shadcn Input with overridable Dhivehi, Thaana, and RTL defaults.",
+  "registryDependencies": [
+    "input"
+  ],
+  "files": [
+    {
+      "path": "registry/components/dv-input.tsx",
+      "content": "import * as React from \"react\"\n\nimport { Input } from \"@/components/ui/input\"\n\ntype DvInputProps = React.ComponentPropsWithoutRef<typeof Input>\n\nconst DvInput = React.forwardRef<HTMLInputElement, DvInputProps>(\n  ({ dir = \"rtl\", lang = \"dv\", style, ...props }, ref) => (\n    <Input ref={ref} dir={dir} lang={lang} style={{ textAlign: \"right\", ...style }} {...props} />\n  )\n)\n\nDvInput.displayName = \"DvInput\"\n\nexport { DvInput, type DvInputProps }\n",
+      "type": "registry:component",
+      "target": "@components/dv-input.tsx"
+    }
+  ],
+  "type": "registry:component"
+}

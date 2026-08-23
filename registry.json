@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "thaana",
+  "homepage": "https://github.com/oreofreakshake/thaana",
+  "items": [
+    {
+      "name": "dv-input",
+      "type": "registry:component",
+      "title": "Dhivehi Input",
+      "description": "A shadcn Input with overridable Dhivehi, Thaana, and RTL defaults.",
+      "registryDependencies": ["input"],
+      "files": [
+        {
+          "path": "registry/components/dv-input.tsx",
+          "type": "registry:component",
+          "target": "@components/dv-input.tsx"
+        }
+      ]
+    }
+  ]
+}
