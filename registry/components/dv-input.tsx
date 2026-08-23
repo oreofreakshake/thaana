@@ -6,7 +6,7 @@ type DvInputProps = React.ComponentPropsWithoutRef<typeof Input>
 
 const DvInput = React.forwardRef<HTMLInputElement, DvInputProps>(
   ({ dir = "rtl", lang = "dv", style, ...props }, ref) => (
-    <Input ref={ref} dir={dir} lang={lang} style={{ textAlign: "right", ...style }} {...props} />
+    <Input ref={ref} dir={dir} lang={lang} style={{ textAlign: "start", ...style }} {...props} />
   )
 )
 

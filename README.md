@@ -32,7 +32,37 @@ export function ProfileField() {
 }
 ```
 
-`DvInput` defaults to `lang="dv"`, `dir="rtl"`, and right-aligned text. Standard React input props remain available, and explicit `lang`, `dir`, or `style={{ textAlign: ... }}` values override those defaults.
+`DvInput` defaults to `lang="dv"`, `dir="rtl"`, and logically start-aligned text. Standard React input props remain available, and explicit `lang`, `dir`, or `style={{ textAlign: ... }}` values override those defaults.
+
+## RTL application setup
+
+For a Dhivehi application, set the document language and direction:
+
+```html
+<html lang="dv" dir="rtl">
+```
+
+Add shadcn's direction component and wrap the React application with its provider:
+
+```sh
+pnpm dlx shadcn@latest add direction
+```
+
+```tsx
+import { DirectionProvider } from "@/components/ui/direction"
+
+<DirectionProvider direction="rtl">
+  <App />
+</DirectionProvider>
+```
+
+Thaana components still provide local RTL defaults so individual components also work inside mixed-direction or LTR applications.
+
+## Bidirectional content
+
+- Use `dir="ltr"` for email addresses, URLs, phone numbers, codes, and complete formatted MVR values.
+- Use `dir="auto"` or `<bdi>` for user-generated or otherwise unknown-direction content.
+- Use logical alignment utilities such as `text-start` and `text-end` instead of physical left/right alignment.
 
 ## Local development
 
