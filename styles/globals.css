@@ -114,10 +114,6 @@
     @apply border-border;
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
-
   body {
     @apply m-0 min-w-80 bg-background text-foreground antialiased;
     font-family: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
@@ -143,6 +139,14 @@
 }
 
 @layer components {
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   .home-showcase-mask {
     padding-bottom: 14rem;
     -webkit-mask-image: linear-gradient(to bottom, black 0%, black 78%, transparent 100%);

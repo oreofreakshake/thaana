@@ -2,6 +2,7 @@ import { ArrowRightIcon, ChevronRightIcon, GitForkIcon } from "lucide-react"
 import { Link } from "react-router-dom"
 
 import { SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { RufiyaaSymbol } from "@/registry/components/dv-currency-input"
 import { DvInput } from "@/registry/components/dv-input"
 import { DvSelect } from "@/registry/components/dv-select"
 import { TerminalCommand } from "@/src/components/terminal-command"
@@ -107,7 +108,7 @@ export function HomePage() {
             </a>
           </div>
         </div>
-      </section>
+    </section>
 
       <section className="px-4 sm:px-6">
         <div className="mx-auto max-w-[82rem]">
@@ -196,20 +197,29 @@ export function HomePage() {
               <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
                 ފައިސާ ނެގުމުގެ މިން
               </p>
-              <h2
-                id="amount-title"
-                lang="en"
-                dir="ltr"
-                className="mt-3 text-end text-3xl font-semibold tracking-tight"
-              >
-                MVR 2,500.00
+              <h2 id="amount-title" className="mt-3 text-3xl font-semibold tracking-tight">
+                <span dir="ltr" className="inline-flex items-center gap-2">
+                  <span className="sr-only">MVR</span>
+                  <span lang="en" className="tabular-nums">
+                    2,500.00
+                  </span>
+                  <RufiyaaSymbol className="h-6 w-9" />
+                </span>
               </h2>
               <div className="mt-5 h-1.5 overflow-hidden rounded-full bg-muted">
                 <div className="h-full w-[64%] rounded-full bg-primary" />
               </div>
               <div className="mt-2 flex justify-between text-xs text-muted-foreground">
-                <span>MVR 50</span>
-                <span>MVR 10,000</span>
+                <span dir="ltr" className="inline-flex items-center gap-1">
+                  <span className="sr-only">MVR</span>
+                  <span lang="en">50</span>
+                  <RufiyaaSymbol className="h-2.5 w-4" />
+                </span>
+                <span dir="ltr" className="inline-flex items-center gap-1">
+                  <span className="sr-only">MVR</span>
+                  <span lang="en">10,000</span>
+                  <RufiyaaSymbol className="h-2.5 w-4" />
+                </span>
               </div>
               <DvInput
                 lang="en"
@@ -325,16 +335,28 @@ export function HomePage() {
                 {[
                   ["އީމެއިލް", "support@example.com"],
                   ["ފޯނު", "+960 777-1234"],
-                  ["ޖުމްލަ", "MVR 1,250.00"],
+                  ["ޖުމްލަ", "1,250.00"],
                 ].map(([label, value]) => (
                   <div
                     key={label}
                     className="flex items-center justify-between gap-4 px-3 py-3 text-sm"
                   >
                     <span>{label}</span>
-                    <bdi lang="en" dir="ltr" className="text-muted-foreground">
-                      {value}
-                    </bdi>
+                    {label === "ޖުމްލަ" ? (
+                      <span
+                        lang="en"
+                        dir="ltr"
+                        className="inline-flex items-center gap-1.5 text-muted-foreground"
+                      >
+                        <span className="sr-only">MVR</span>
+                        <span className="tabular-nums">{value}</span>
+                        <RufiyaaSymbol className="h-3.5 w-5" />
+                      </span>
+                    ) : (
+                      <bdi lang="en" dir="ltr" className="text-muted-foreground">
+                        {value}
+                      </bdi>
+                    )}
                   </div>
                 ))}
               </div>

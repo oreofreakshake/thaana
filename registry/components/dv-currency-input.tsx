@@ -54,11 +54,11 @@ function isMvrValueInRange(
   )
 }
 
-function RufiyaaSymbol() {
+function RufiyaaSymbol({ className }: { className?: string }) {
   return (
     <svg
       viewBox="0 0 276.85077 175.59682"
-      className="h-4 w-6"
+      className={cn("h-4 w-6", className)}
       fill="currentColor"
       aria-hidden="true"
     >
@@ -129,7 +129,7 @@ const DvCurrencyInput = React.forwardRef<HTMLInputElement, DvCurrencyInputProps>
       <div dir="ltr" data-slot="dv-currency-input" className={cn("relative", containerClassName)}>
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 start-3 z-10 flex items-center text-muted-foreground"
+          className="pointer-events-none absolute inset-y-0 end-3 z-10 flex items-center text-muted-foreground"
         >
           <RufiyaaSymbol />
         </span>
@@ -147,7 +147,7 @@ const DvCurrencyInput = React.forwardRef<HTMLInputElement, DvCurrencyInputProps>
           onChange={handleChange}
           onFocus={handleFocus}
           onBlur={handleBlur}
-          className={cn("ps-11 font-sans tabular-nums", className)}
+          className={cn("pe-11 font-sans tabular-nums", className)}
           style={{ textAlign: "end", ...props.style }}
         />
       </div>
@@ -163,5 +163,6 @@ export {
   formatMvr,
   isMvrValueInRange,
   parseMvr,
+  RufiyaaSymbol,
   sanitizeMvrInput,
 }

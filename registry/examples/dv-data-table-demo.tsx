@@ -1,3 +1,4 @@
+import { RufiyaaSymbol } from "@/registry/components/dv-currency-input"
 import { DvDataTable, type DvDataTableColumn } from "@/registry/components/dv-data-table"
 
 type Payment = {
@@ -76,8 +77,15 @@ const columns: DvDataTableColumn<Payment>[] = [
   {
     id: "amount",
     header: "ޖުމްލަ",
-    cell: (payment) =>
-      `MVR ${payment.amount.toLocaleString("en-MV", { minimumFractionDigits: 2 })}`,
+    cell: (payment) => (
+      <span dir="ltr" className="inline-flex items-center justify-end gap-1.5">
+        <span className="sr-only">MVR</span>
+        <RufiyaaSymbol className="h-3 w-4" />
+        <span className="tabular-nums">
+          {payment.amount.toLocaleString("en-MV", { minimumFractionDigits: 2 })}
+        </span>
+      </span>
+    ),
     align: "end",
     dir: "ltr",
   },
