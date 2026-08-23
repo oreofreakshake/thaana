@@ -76,14 +76,7 @@ export function HomePage() {
   return (
     <main>
       <section>
-        <div className="mx-auto flex max-w-[90rem] flex-col items-center px-6 py-16 text-center md:py-24 lg:py-28">
-          <Link
-            to="/docs/components/select"
-            className="mb-5 inline-flex items-center gap-1.5 rounded-full bg-showcase px-3 py-1 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
-          >
-            Dhivehi-first shadcn components
-            <ArrowRightIcon className="size-3" />
-          </Link>
+        <div className="mx-auto flex max-w-360 flex-col items-center px-6 py-16 text-center md:py-24 lg:py-28">
           <h1 className="max-w-5xl text-balance text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
             The Foundation for Dhivehi Interfaces
           </h1>
