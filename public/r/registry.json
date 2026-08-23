@@ -16,6 +16,20 @@
           "target": "@components/dv-input.tsx"
         }
       ]
+    },
+    {
+      "name": "dv-select",
+      "type": "registry:component",
+      "title": "Dhivehi Select",
+      "description": "A shadcn Select with an overridable RTL direction default for Dhivehi interfaces.",
+      "registryDependencies": ["select"],
+      "files": [
+        {
+          "path": "registry/components/dv-select.tsx",
+          "type": "registry:component",
+          "target": "@components/dv-select.tsx"
+        }
+      ]
     }
   ]
 }
