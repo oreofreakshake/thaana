@@ -3,7 +3,7 @@ import { DvSelect } from "@/registry/components/dv-select"
 
 export function DvSelectDemo() {
   return (
-    <div lang="dv" dir="rtl" className="grid max-w-sm gap-2">
+    <div lang="dv" dir="rtl" className="grid w-full max-w-sm gap-2">
       <span id="dv-island-label" className="text-sm font-medium">
         ރަށް
       </span>

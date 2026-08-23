@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dv-phone-input",
+  "title": "Dhivehi Phone Input",
+  "description": "A +960 phone input with local 7-or-9 prefix validation, seven-digit formatting, and LTR isolation for RTL forms.",
+  "registryDependencies": [
+    "https://thaana.yazak.me/r/dv-input.json"
+  ],
+  "files": [
+    {
+      "path": "registry/components/dv-phone-input.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\nimport { DvInput, type DvInputProps } from \"./dv-input\"\n\ntype DvPhoneInputProps = Omit<\n  DvInputProps,\n  \"defaultValue\" | \"dir\" | \"lang\" | \"maxLength\" | \"onChange\" | \"type\" | \"value\"\n> & {\n  value?: string\n  defaultValue?: string\n  onValueChange?: (value: string, valid: boolean) => void\n  onChange?: React.ChangeEventHandler<HTMLInputElement>\n  containerClassName?: string\n}\n\nfunction getMaldivesPhoneDigits(value: string) {\n  const digits = value.replace(/\\D/g, \"\")\n  const localDigits = digits.startsWith(\"960\") ? digits.slice(3) : digits\n  return /^[79]/.test(localDigits) ? localDigits.slice(0, 7) : \"\"\n}\n\nfunction formatMaldivesPhone(value: string) {\n  const digits = getMaldivesPhoneDigits(value)\n  return digits.length > 3 ? `${digits.slice(0, 3)} ${digits.slice(3)}` : digits\n}\n\nfunction toMaldivesE164(value: string) {\n  const digits = getMaldivesPhoneDigits(value)\n  return digits ? `+960${digits}` : \"\"\n}\n\nfunction isValidMaldivesPhone(value: string) {\n  return /^[79][0-9]{6}$/.test(getMaldivesPhoneDigits(value))\n}\n\nconst DvPhoneInput = React.forwardRef<HTMLInputElement, DvPhoneInputProps>(\n  (\n    {\n      value,\n      defaultValue = \"\",\n      onValueChange,\n      onChange,\n      className,\n      containerClassName,\n      inputMode = \"tel\",\n      pattern = \"[79][0-9]{2} [0-9]{4}\",\n      placeholder = \"777 1234\",\n      ...props\n    },\n    ref\n  ) => {\n    const controlled = value !== undefined\n    const [text, setText] = React.useState(() => formatMaldivesPhone(value ?? defaultValue))\n\n    React.useEffect(() => {\n      if (controlled) setText(formatMaldivesPhone(value))\n    }, [controlled, value])\n\n    function handleChange(event: React.ChangeEvent<HTMLInputElement>) {\n      const nextText = formatMaldivesPhone(event.currentTarget.value)\n      event.currentTarget.value = nextText\n      setText(nextText)\n      onValueChange?.(toMaldivesE164(nextText), isValidMaldivesPhone(nextText))\n      onChange?.(event)\n    }\n\n    return (\n      <div dir=\"ltr\" data-slot=\"dv-phone-input\" className={cn(\"relative\", containerClassName)}>\n        <span\n          aria-hidden=\"true\"\n          className=\"pointer-events-none absolute inset-y-0 start-3 z-10 flex items-center font-sans text-sm text-muted-foreground\"\n        >\n          +960\n        </span>\n        <DvInput\n          {...props}\n          ref={ref}\n          type=\"tel\"\n          lang=\"en\"\n          dir=\"ltr\"\n          inputMode={inputMode}\n          pattern={pattern}\n          maxLength={8}\n          placeholder={placeholder}\n          value={text}\n          onChange={handleChange}\n          className={cn(\"ps-14 font-sans tabular-nums\", className)}\n          style={{ textAlign: \"start\", ...props.style }}\n        />\n      </div>\n    )\n  }\n)\n\nDvPhoneInput.displayName = \"DvPhoneInput\"\n\nexport {\n  DvPhoneInput,\n  type DvPhoneInputProps,\n  formatMaldivesPhone,\n  getMaldivesPhoneDigits,\n  isValidMaldivesPhone,\n  toMaldivesE164,\n}\n",
+      "type": "registry:component",
+      "target": "@components/dv-phone-input.tsx"
+    }
+  ],
+  "type": "registry:component"
+}

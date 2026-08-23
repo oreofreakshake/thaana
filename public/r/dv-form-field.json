@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dv-form-field",
+  "title": "Dhivehi Form Field",
+  "description": "An accessible shadcn Field composition with Dhivehi labels, descriptions, errors, and required indicators.",
+  "registryDependencies": [
+    "field"
+  ],
+  "files": [
+    {
+      "path": "registry/components/dv-form-field.tsx",
+      "content": "import * as React from \"react\"\n\nimport { Field, FieldDescription, FieldError, FieldLabel } from \"@/components/ui/field\"\n\ntype DvFormControlProps = {\n  id?: string\n  \"aria-describedby\"?: string\n  \"aria-invalid\"?: boolean | \"true\" | \"false\"\n  \"aria-required\"?: boolean | \"true\" | \"false\"\n  required?: boolean\n}\n\ntype DvFormFieldProps = Omit<React.ComponentProps<typeof Field>, \"children\"> & {\n  children: React.ReactElement<DvFormControlProps>\n  label: React.ReactNode\n  description?: React.ReactNode\n  error?: React.ReactNode\n  required?: boolean\n  controlId?: string\n}\n\nfunction DvFormField({\n  children,\n  label,\n  description,\n  error,\n  required = false,\n  controlId,\n  dir = \"rtl\",\n  lang = \"dv\",\n  ...props\n}: DvFormFieldProps) {\n  const generatedId = React.useId()\n  const id = children.props.id ?? controlId ?? `dv-field-${generatedId}`\n  const descriptionId = description ? `${id}-description` : undefined\n  const errorId = error ? `${id}-error` : undefined\n  const describedBy = [children.props[\"aria-describedby\"], descriptionId, errorId]\n    .filter(Boolean)\n    .join(\" \")\n\n  const control = React.cloneElement(children, {\n    id,\n    \"aria-describedby\": describedBy || undefined,\n    \"aria-invalid\": error ? true : children.props[\"aria-invalid\"],\n    \"aria-required\": required || children.props[\"aria-required\"] || undefined,\n    required: required || children.props.required || undefined,\n  })\n\n  return (\n    <Field dir={dir} lang={lang} data-invalid={Boolean(error)} {...props}>\n      <FieldLabel htmlFor={id}>\n        {label}\n        {required && (\n          <span aria-hidden=\"true\" className=\"text-destructive\">\n            *\n          </span>\n        )}\n      </FieldLabel>\n      {control}\n      {description && <FieldDescription id={descriptionId}>{description}</FieldDescription>}\n      {error && <FieldError id={errorId}>{error}</FieldError>}\n    </Field>\n  )\n}\n\nexport { DvFormField, type DvFormFieldProps }\n",
+      "type": "registry:component",
+      "target": "@components/dv-form-field.tsx"
+    }
+  ],
+  "type": "registry:component"
+}

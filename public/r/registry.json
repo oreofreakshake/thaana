@@ -30,6 +30,68 @@
           "target": "@components/dv-select.tsx"
         }
       ]
+    },
+    {
+      "name": "dv-form-field",
+      "type": "registry:component",
+      "title": "Dhivehi Form Field",
+      "description": "An accessible shadcn Field composition with Dhivehi labels, descriptions, errors, and required indicators.",
+      "registryDependencies": ["field"],
+      "files": [
+        {
+          "path": "registry/components/dv-form-field.tsx",
+          "type": "registry:component",
+          "target": "@components/dv-form-field.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dv-currency-input",
+      "type": "registry:component",
+      "title": "Dhivehi Currency Input",
+      "description": "A bidi-safe MVR input with decimal sanitizing, grouped display formatting, and numeric value callbacks.",
+      "registryDependencies": ["https://thaana.yazak.me/r/dv-input.json"],
+      "files": [
+        {
+          "path": "registry/components/dv-currency-input.tsx",
+          "type": "registry:component",
+          "target": "@components/dv-currency-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dv-phone-input",
+      "type": "registry:component",
+      "title": "Dhivehi Phone Input",
+      "description": "A +960 phone input with local 7-or-9 prefix validation, seven-digit formatting, and LTR isolation for RTL forms.",
+      "registryDependencies": ["https://thaana.yazak.me/r/dv-input.json"],
+      "files": [
+        {
+          "path": "registry/components/dv-phone-input.tsx",
+          "type": "registry:component",
+          "target": "@components/dv-phone-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dv-data-table",
+      "type": "registry:component",
+      "title": "Dhivehi Data Table",
+      "description": "A compact generic data table with RTL columns, mixed-direction cells, search, pagination, and row actions.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "table",
+        "button",
+        "dropdown-menu",
+        "https://thaana.yazak.me/r/dv-input.json"
+      ],
+      "files": [
+        {
+          "path": "registry/components/dv-data-table.tsx",
+          "type": "registry:component",
+          "target": "@components/dv-data-table.tsx"
+        }
+      ]
     }
   ]
 }

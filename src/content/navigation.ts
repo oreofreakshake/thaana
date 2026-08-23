@@ -28,6 +28,10 @@ export const docsNavigation: DocsSection[] = [
     links: [
       { title: "Input", href: "/docs/components/input" },
       { title: "Select", href: "/docs/components/select" },
+      { title: "Form Field", href: "/docs/components/form-field" },
+      { title: "Currency Input", href: "/docs/components/currency-input" },
+      { title: "Phone Input", href: "/docs/components/phone-input" },
+      { title: "Data Table", href: "/docs/components/data-table" },
     ],
   },
 ]
@@ -68,6 +72,34 @@ export const docsOnThisPage: Record<string, DocsLink[]> = {
     { title: "Examples", href: "#examples" },
     { title: "Disabled", href: "#disabled" },
     { title: "Mixed-direction options", href: "#mixed-direction-options" },
+    { title: "RTL behavior", href: "#rtl-behavior" },
+  ],
+  "/docs/components/form-field": [
+    { title: "Installation", href: "#installation" },
+    { title: "Usage", href: "#usage" },
+    { title: "Examples", href: "#examples" },
+    { title: "Validation", href: "#validation" },
+    { title: "RTL behavior", href: "#rtl-behavior" },
+  ],
+  "/docs/components/currency-input": [
+    { title: "Installation", href: "#installation" },
+    { title: "Usage", href: "#usage" },
+    { title: "Examples", href: "#examples" },
+    { title: "Value model", href: "#value-model" },
+    { title: "RTL behavior", href: "#rtl-behavior" },
+  ],
+  "/docs/components/phone-input": [
+    { title: "Installation", href: "#installation" },
+    { title: "Usage", href: "#usage" },
+    { title: "Examples", href: "#examples" },
+    { title: "Validation", href: "#validation" },
+    { title: "RTL behavior", href: "#rtl-behavior" },
+  ],
+  "/docs/components/data-table": [
+    { title: "Installation", href: "#installation" },
+    { title: "Usage", href: "#usage" },
+    { title: "Examples", href: "#examples" },
+    { title: "Column model", href: "#column-model" },
     { title: "RTL behavior", href: "#rtl-behavior" },
   ],
 }

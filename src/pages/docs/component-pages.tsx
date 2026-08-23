@@ -27,7 +27,7 @@ type ComponentPageProps = {
   children: ReactNode
 }
 
-function ComponentPage({
+export function ComponentPage({
   name,
   description,
   preview,
@@ -166,7 +166,7 @@ import { DvSelect } from "@/components/dv-select"
 export function DvSelectDemo() {
   return (
     <DvSelect>
-      <SelectTrigger lang="dv">
+      <SelectTrigger lang="dv" className="w-full">
         <SelectValue placeholder="ރަށެއް ހޮވާ" />
       </SelectTrigger>
       <SelectContent lang="dv">

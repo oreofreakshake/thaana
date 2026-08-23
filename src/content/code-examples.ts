@@ -16,6 +16,16 @@ export const installInputCommands = shadcnCommands("add oreofreakshake/thaana/dv
 
 export const installSelectCommands = shadcnCommands("add oreofreakshake/thaana/dv-select")
 
+export const installFormFieldCommands = shadcnCommands("add oreofreakshake/thaana/dv-form-field")
+
+export const installCurrencyInputCommands = shadcnCommands(
+  "add oreofreakshake/thaana/dv-currency-input"
+)
+
+export const installPhoneInputCommands = shadcnCommands("add oreofreakshake/thaana/dv-phone-input")
+
+export const installDataTableCommands = shadcnCommands("add oreofreakshake/thaana/dv-data-table")
+
 export const inputUsage = `import { DvInput } from "@/components/dv-input"
 
 export function NameField() {
@@ -43,6 +53,55 @@ export function IslandField() {
     </DvSelect>
   )
 }`
+
+export const formFieldUsage = `import { DvFormField } from "@/components/dv-form-field"
+import { DvInput } from "@/components/dv-input"
+
+<DvFormField label="ނަން" description="ފުރިހަމަ ނަން ލިޔުއްވާ." required>
+  <DvInput required />
+</DvFormField>`
+
+export const currencyInputUsage = `import { DvCurrencyInput } from "@/components/dv-currency-input"
+
+<DvCurrencyInput
+  defaultValue={1250}
+  min={0}
+  onValueChange={(amount) => console.log(amount)}
+/>`
+
+export const phoneInputUsage = `import { DvPhoneInput } from "@/components/dv-phone-input"
+
+<DvPhoneInput
+  required
+  onValueChange={(phone) => console.log(phone)}
+/>`
+
+export const dataTableUsage = `import {
+  DvDataTable,
+  type DvDataTableColumn,
+} from "@/components/dv-data-table"
+
+const columns: DvDataTableColumn<Customer>[] = [
+  {
+    id: "name",
+    header: "ނަން",
+    cell: (customer) => <bdi dir="auto">{customer.name}</bdi>,
+    searchValue: (customer) => customer.name,
+  },
+  {
+    id: "amount",
+    header: "ޖުމްލަ",
+    cell: (customer) => customer.amount,
+    dir: "ltr",
+    align: "end",
+  },
+]
+
+<DvDataTable
+  data={customers}
+  columns={columns}
+  getRowId={(customer) => customer.id}
+/>`
 
 export const documentDirection = `<html lang="dv" dir="rtl">`
 
