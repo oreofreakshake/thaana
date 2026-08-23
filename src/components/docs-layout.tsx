@@ -1,27 +1,29 @@
-import { NavLink, Outlet } from "react-router-dom"
+import { NavLink, Outlet, useLocation } from "react-router-dom"
 
-import { docsNavigation } from "@/src/content/navigation"
+import { DocsTableOfContents } from "@/src/components/docs-table-of-contents"
+import { docsNavigation, docsOnThisPage } from "@/src/content/navigation"
 
 export function DocsLayout() {
+  const { pathname } = useLocation()
+  const pageLinks = docsOnThisPage[pathname] ?? []
+
   return (
-    <div className="mx-auto grid max-w-7xl lg:grid-cols-[15rem_minmax(0,1fr)]">
-      <aside className="hidden border-e lg:block">
-        <nav className="sticky top-16 h-[calc(100dvh-4rem)] overflow-y-auto px-6 py-10">
+    <div className="mx-auto grid max-w-[90rem] lg:grid-cols-[15rem_minmax(0,1fr)] xl:grid-cols-[15rem_minmax(0,1fr)_13rem]">
+      <aside className="hidden lg:block">
+        <nav className="sticky top-14 h-[calc(100dvh-3.5rem)] overflow-y-auto px-5 py-8">
           {docsNavigation.map((section) => (
             <div key={section.title} className="mb-8">
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                {section.title}
-              </p>
+              <p className="mb-2 px-2 text-sm font-semibold text-foreground">{section.title}</p>
               <div className="space-y-1">
                 {section.links.map((link) => (
                   <NavLink
                     key={link.href}
                     to={link.href}
                     className={({ isActive }) =>
-                      `block rounded-md px-3 py-2 text-sm transition-colors ${
+                      `block rounded-md px-2 py-1.5 text-sm transition-colors ${
                         isActive
-                          ? "bg-secondary font-medium text-secondary-foreground"
-                          : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                          ? "font-medium text-foreground"
+                          : "text-muted-foreground hover:text-foreground"
                       }`
                     }
                   >
@@ -34,11 +36,17 @@ export function DocsLayout() {
         </nav>
       </aside>
 
-      <main className="min-w-0 px-5 py-12 sm:px-8 lg:px-12 lg:py-16">
-        <article className="docs-content mx-auto max-w-3xl">
+      <main className="min-w-0 border-x-0 px-5 py-10 sm:px-8 lg:border-x lg:px-10 lg:py-12 xl:px-12">
+        <article className="docs-content mx-auto max-w-[48rem]">
           <Outlet />
         </article>
       </main>
+
+      <aside className="hidden xl:block">
+        <nav className="sticky top-14 max-h-[calc(100dvh-3.5rem)] overflow-y-auto px-6 py-10">
+          <DocsTableOfContents links={pageLinks} />
+        </nav>
+      </aside>
     </div>
   )
 }

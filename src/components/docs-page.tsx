@@ -7,20 +7,17 @@ type DocsPageProps = {
   children: ReactNode
 }
 
-export function DocsPage({
-  title,
-  description,
-  eyebrow = "Documentation",
-  children,
-}: DocsPageProps) {
+export function DocsPage({ title, description, eyebrow, children }: DocsPageProps) {
   return (
     <>
-      <header className="mb-12 border-b pb-9">
-        <p className="mb-3 font-mono text-xs font-semibold uppercase tracking-[0.16em] text-primary">
-          {eyebrow}
+      <header className="mb-10">
+        {eyebrow ? (
+          <p className="mb-2 text-sm font-medium text-muted-foreground">{eyebrow}</p>
+        ) : null}
+        <h1 className="scroll-m-20 text-3xl font-semibold tracking-tight sm:text-4xl">{title}</h1>
+        <p className="mt-3 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg">
+          {description}
         </p>
-        <h1 className="text-4xl font-semibold tracking-[-0.035em] sm:text-5xl">{title}</h1>
-        <p className="mt-4 max-w-2xl text-lg leading-8 text-muted-foreground">{description}</p>
       </header>
       {children}
     </>

@@ -1,6 +1,20 @@
-export const installInput = "pnpm dlx shadcn@latest add oreofreakshake/thaana/dv-input"
+import type { PackageCommands } from "@/src/components/terminal-command"
 
-export const installSelect = "pnpm dlx shadcn@latest add oreofreakshake/thaana/dv-select"
+function shadcnCommands(command: string): PackageCommands {
+  return {
+    pnpm: `pnpm dlx shadcn@latest ${command}`,
+    npm: `npx shadcn@latest ${command}`,
+    bun: `bunx --bun shadcn@latest ${command}`,
+  }
+}
+
+export const initCommands = shadcnCommands("init")
+
+export const installDirectionCommands = shadcnCommands("add direction")
+
+export const installInputCommands = shadcnCommands("add oreofreakshake/thaana/dv-input")
+
+export const installSelectCommands = shadcnCommands("add oreofreakshake/thaana/dv-select")
 
 export const inputUsage = `import { DvInput } from "@/components/dv-input"
 

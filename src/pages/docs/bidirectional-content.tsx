@@ -10,7 +10,7 @@ export function BidirectionalContentPage() {
       description="Use native HTML direction and isolation for interfaces that combine Dhivehi with Latin text, numbers, and punctuation."
       eyebrow="Foundation"
     >
-      <section>
+      <section id="known-ltr-values">
         <h2>Known LTR values</h2>
         <p>
           Email addresses, URLs, phone numbers, codes, and complete formatted MVR values should
@@ -50,7 +50,7 @@ export function BidirectionalContentPage() {
         </ComponentPreview>
       </section>
 
-      <section>
+      <section id="unknown-direction">
         <h2>Unknown direction</h2>
         <p>
           Use <code>&lt;bdi&gt;</code> for an inline value such as a user-generated name so it
@@ -60,7 +60,7 @@ export function BidirectionalContentPage() {
         </p>
       </section>
 
-      <section>
+      <section id="alignment">
         <h2>Alignment</h2>
         <p>
           Keep layout direction-independent with <code>text-start</code> and <code>text-end</code>.

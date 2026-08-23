@@ -9,7 +9,7 @@ export function RtlPage() {
       description="Thaana uses browser direction, shadcn configuration, and local component defaults as separate, complementary layers."
       eyebrow="Foundation"
     >
-      <section>
+      <section id="document-direction">
         <h2>Document direction</h2>
         <p>
           A Dhivehi application should declare its language and reading direction at the document
@@ -18,7 +18,7 @@ export function RtlPage() {
         <CodeBlock language="html">{documentDirection}</CodeBlock>
       </section>
 
-      <section>
+      <section id="primitive-direction">
         <h2>Primitive direction</h2>
         <p>
           Radix components such as Select use direction for positioning and behavior. Shadcn&apos;s
@@ -28,7 +28,7 @@ export function RtlPage() {
         <CodeBlock>{directionProvider}</CodeBlock>
       </section>
 
-      <section>
+      <section id="logical-css">
         <h2>Logical CSS</h2>
         <p>
           The registry enables shadcn RTL transforms. Prefer logical utilities such as{" "}
@@ -37,7 +37,7 @@ export function RtlPage() {
         </p>
       </section>
 
-      <section>
+      <section id="local-defaults-and-portals">
         <h2>Local defaults and portals</h2>
         <p>
           Thaana components keep narrow local defaults where they are meaningful. DvInput sets

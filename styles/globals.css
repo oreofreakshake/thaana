@@ -31,6 +31,18 @@
   --border: oklch(0.88 0 0);
   --input: oklch(0.8 0 0);
   --ring: oklch(0.24 0 0);
+  --showcase: oklch(0.965 0 0);
+  --code: oklch(0.12 0 0);
+  --code-border: oklch(0.24 0 0);
+  --code-foreground: oklch(0.94 0 0);
+  --code-muted: oklch(0.66 0 0);
+  --code-line: oklch(0.62 0 0);
+  --code-keyword: oklch(0.72 0.2 18);
+  --code-string: oklch(0.76 0.15 245);
+  --code-tag: oklch(0.78 0.15 205);
+  --code-number: oklch(0.78 0.16 305);
+  --code-constant: oklch(0.8 0.15 75);
+  --code-comment: oklch(0.6 0 0);
   --radius: 0.75rem;
   --font-thaana: "MV Typer", "DM Sans Variable", "Noto Sans Thaana", sans-serif;
 }
@@ -55,10 +67,12 @@
   --border: oklch(1 0 0 / 14%);
   --input: oklch(1 0 0 / 22%);
   --ring: oklch(0.8 0 0);
+  --showcase: oklch(0.16 0 0);
 }
 
 @theme inline {
   --font-sans: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -77,6 +91,18 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-showcase: var(--showcase);
+  --color-code: var(--code);
+  --color-code-border: var(--code-border);
+  --color-code-foreground: var(--code-foreground);
+  --color-code-muted: var(--code-muted);
+  --color-code-line: var(--code-line);
+  --color-code-keyword: var(--code-keyword);
+  --color-code-string: var(--code-string);
+  --color-code-tag: var(--code-tag);
+  --color-code-number: var(--code-number);
+  --color-code-constant: var(--code-constant);
+  --color-code-comment: var(--code-comment);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -102,22 +128,37 @@
     font-synthesis: none;
   }
 
-  :lang(en) {
+  [lang="en"] {
     font-family: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
   }
 
   ::selection {
     background: color-mix(in oklab, var(--primary) 25%, transparent);
   }
+
+  .code-type {
+    font-variant-ligatures: none;
+    font-variant-numeric: tabular-nums;
+  }
 }
 
 @layer components {
+  .home-showcase-mask {
+    padding-bottom: 14rem;
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 78%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 0%, black 78%, transparent 100%);
+  }
+
   .docs-content section {
-    @apply mb-12;
+    @apply mb-14 scroll-m-20;
   }
 
   .docs-content h2 {
-    @apply mb-4 mt-10 text-2xl font-semibold tracking-[-0.025em];
+    @apply mb-3 mt-12 scroll-m-20 text-2xl font-semibold tracking-tight;
+  }
+
+  .docs-content h3 {
+    @apply mb-2 mt-9 scroll-m-20 text-xl font-semibold tracking-tight;
   }
 
   .docs-content p {
@@ -132,7 +173,7 @@
     @apply ps-1 leading-7;
   }
 
-  .docs-content :not(pre) > code {
+  .docs-content :not(pre) > code:not([data-terminal-command]) {
     @apply rounded-md border bg-muted px-1.5 py-0.5 font-mono text-[0.875em] text-foreground;
   }
 }

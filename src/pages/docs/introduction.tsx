@@ -6,7 +6,7 @@ export function IntroductionPage() {
       title="Introduction"
       description="Thaana is a small, open-source registry for building Dhivehi-first React interfaces with shadcn."
     >
-      <section>
+      <section id="what-thaana-solves">
         <h2>What Thaana solves</h2>
         <p>
           A component can look mirrored and still behave incorrectly in a real RTL interface. Thaana
@@ -19,7 +19,7 @@ export function IntroductionPage() {
         </p>
       </section>
 
-      <section>
+      <section id="built-on-shadcn">
         <h2>Built on shadcn</h2>
         <p>
           Thaana composes existing shadcn primitives instead of replacing accessible behavior or
@@ -28,7 +28,7 @@ export function IntroductionPage() {
         </p>
       </section>
 
-      <section>
+      <section id="current-scope">
         <h2>Current scope</h2>
         <ul>
           <li>React and TypeScript projects.</li>

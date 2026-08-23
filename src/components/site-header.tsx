@@ -11,10 +11,10 @@ const navClass = ({ isActive }: { isActive: boolean }) =>
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b bg-background/92 backdrop-blur supports-backdrop-filter:bg-background/80">
-      <div className="mx-auto flex h-16 max-w-7xl items-center gap-6 px-4 sm:px-6">
+    <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
+      <div className="mx-auto flex h-14 max-w-360 items-center gap-6 px-4 sm:px-6">
         <Link to="/" aria-label="Thaana home" className="shrink-0">
-          <img src="/logo.svg" alt="Thaana" className="h-12 w-auto dark:invert" />
+          <img src="/logo.svg" alt="Thaana" className="h-10 w-auto dark:invert" />
         </Link>
 
         <nav className="hidden items-center gap-5 md:flex" aria-label="Primary navigation">
@@ -30,7 +30,7 @@ export function SiteHeader() {
           <ThemeToggle />
           <a
             href="https://github.com/oreofreakshake/thaana"
-            className="inline-flex size-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="inline-flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             aria-label="Thaana on GitHub"
           >
             <GitForkIcon className="size-4" />
@@ -41,7 +41,7 @@ export function SiteHeader() {
               <MenuIcon className="size-5" />
               <span className="sr-only">Open navigation</span>
             </summary>
-            <nav className="absolute end-0 top-11 w-64 rounded-xl border bg-popover p-3 text-popover-foreground shadow-lg">
+            <nav className="absolute inset-e-0 top-11 w-64 rounded-xl border bg-popover p-3 text-popover-foreground shadow-lg">
               {docsNavigation.map((section) => (
                 <div key={section.title} className="mb-3 last:mb-0">
                   <p className="px-2 py-1 text-xs font-medium uppercase tracking-wider text-muted-foreground">

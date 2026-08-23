@@ -31,3 +31,43 @@ export const docsNavigation: DocsSection[] = [
     ],
   },
 ]
+
+export const docsOnThisPage: Record<string, DocsLink[]> = {
+  "/docs/introduction": [
+    { title: "What Thaana solves", href: "#what-thaana-solves" },
+    { title: "Built on shadcn", href: "#built-on-shadcn" },
+    { title: "Current scope", href: "#current-scope" },
+  ],
+  "/docs/installation": [
+    { title: "Prerequisite", href: "#prerequisite" },
+    { title: "Add a component", href: "#add-a-component" },
+    { title: "Recommended RTL setup", href: "#recommended-rtl-host-setup" },
+  ],
+  "/docs/rtl": [
+    { title: "Document direction", href: "#document-direction" },
+    { title: "Primitive direction", href: "#primitive-direction" },
+    { title: "Logical CSS", href: "#logical-css" },
+    { title: "Local defaults and portals", href: "#local-defaults-and-portals" },
+  ],
+  "/docs/bidirectional-content": [
+    { title: "Known LTR values", href: "#known-ltr-values" },
+    { title: "Unknown direction", href: "#unknown-direction" },
+    { title: "Alignment", href: "#alignment" },
+  ],
+  "/docs/components/input": [
+    { title: "Installation", href: "#installation" },
+    { title: "Usage", href: "#usage" },
+    { title: "Examples", href: "#examples" },
+    { title: "Disabled", href: "#disabled" },
+    { title: "LTR values", href: "#ltr-values" },
+    { title: "RTL behavior", href: "#rtl-behavior" },
+  ],
+  "/docs/components/select": [
+    { title: "Installation", href: "#installation" },
+    { title: "Usage", href: "#usage" },
+    { title: "Examples", href: "#examples" },
+    { title: "Disabled", href: "#disabled" },
+    { title: "Mixed-direction options", href: "#mixed-direction-options" },
+    { title: "RTL behavior", href: "#rtl-behavior" },
+  ],
+}
