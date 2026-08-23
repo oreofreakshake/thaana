@@ -6,6 +6,9 @@ node_modules/
 *.tsbuildinfo
 .tmp/
 
+# Production build output
+dist/
+
 # Test output
 coverage/
 

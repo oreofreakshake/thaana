@@ -109,6 +109,12 @@ pnpm install
 pnpm validate
 ```
 
+Run the documentation site locally:
+
+```sh
+pnpm dev
+```
+
 Biome is the sole formatter and linter for this repository. Check formatting, imports, and lint rules without changing files:
 
 ```sh
@@ -121,10 +127,16 @@ Apply Biome's safe formatting, import organization, and lint fixes:
 pnpm check:write
 ```
 
-Build the static registry payloads in `public/r`:
+Build the documentation site and static registry payloads:
 
 ```sh
 pnpm build
+```
+
+Build only the static registry payloads in `public/r`:
+
+```sh
+pnpm registry:build
 ```
 
 Validate only the source registry:

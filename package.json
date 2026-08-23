@@ -6,29 +6,40 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "shadcn build",
+    "dev": "vite",
+    "build": "pnpm registry:build && vite build",
+    "build:docs": "vite build",
     "check": "biome check .",
     "check:write": "biome check --write .",
     "format": "biome format --write .",
     "lint": "biome lint .",
+    "registry:build": "shadcn build",
     "registry:validate": "shadcn registry validate ./registry.json",
     "typecheck": "tsc --noEmit",
     "validate": "pnpm check && pnpm typecheck && pnpm registry:validate && pnpm build"
   },
   "dependencies": {
+    "@fontsource-variable/dm-sans": "^5.3.0",
     "clsx": "^2.1.1",
     "lucide-react": "^1.33.0",
     "radix-ui": "^1.6.7",
     "react": "^19.1.1",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.2",
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.10",
+    "@openai/sites-vite-plugin": "^0.2.0",
+    "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^24.3.0",
     "@types/react": "^19.1.10",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^6.1.0",
     "shadcn": "^4.16.2",
     "tailwindcss": "^4.1.12",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.2",
+    "vite": "^8.2.2"
   },
   "packageManager": "pnpm@10.17.1"
 }

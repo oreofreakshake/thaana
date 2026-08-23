@@ -16,5 +16,13 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["components/**/*.tsx", "lib/**/*.ts", "registry/**/*.ts", "registry/**/*.tsx"]
+  "include": [
+    "components/**/*.tsx",
+    "lib/**/*.ts",
+    "registry/**/*.ts",
+    "registry/**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "vite.config.ts"
+  ]
 }

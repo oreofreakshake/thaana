@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "thaana",
-  "homepage": "https://github.com/oreofreakshake/thaana",
+  "homepage": "https://thaana.yazak.me",
   "items": [
     {
       "name": "dv-input",

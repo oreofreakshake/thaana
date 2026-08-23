@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta
+      name="description"
+      content="Dhivehi-first UI system built on shadcn."
+    />
+    <meta property="og:title" content="Thaana — Dhivehi-first shadcn components" />
+    <meta
+      property="og:description"
+      content="Dhivehi-first shadcn components for React, built for RTL and mixed-direction interfaces."
+    />
+    <meta property="og:image" content="https://thaana.yazak.me/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Thaana — Dhivehi-first shadcn components" />
+    <meta
+      name="twitter:description"
+      content="Dhivehi-first shadcn components for React, built for RTL and mixed-direction interfaces."
+    />
+    <meta name="twitter:image" content="https://thaana.yazak.me/og.png" />
+    <script>
+      const savedTheme = localStorage.getItem("thaana-theme")
+      const prefersDark = matchMedia("(prefers-color-scheme: dark)").matches
+      document.documentElement.classList.toggle(
+        "dark",
+        savedTheme ? savedTheme === "dark" : prefersDark
+      )
+    </script>
+    <title>Thaana shadcn components</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

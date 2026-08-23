@@ -1,1 +1,138 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@font-face {
+  font-family: "MV Typer";
+  src: url("/fonts/mv-typer.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+0780-07BF;
+}
+
+:root {
+  color-scheme: light;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.12 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.12 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.12 0 0);
+  --primary: oklch(0.12 0 0);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.96 0 0);
+  --secondary-foreground: oklch(0.16 0 0);
+  --muted: oklch(0.96 0 0);
+  --muted-foreground: oklch(0.46 0 0);
+  --accent: oklch(0.93 0 0);
+  --accent-foreground: oklch(0.12 0 0);
+  --destructive: oklch(0.25 0 0);
+  --border: oklch(0.88 0 0);
+  --input: oklch(0.8 0 0);
+  --ring: oklch(0.24 0 0);
+  --radius: 0.75rem;
+  --font-thaana: "MV Typer", "DM Sans Variable", "Noto Sans Thaana", sans-serif;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: oklch(0.1 0 0);
+  --foreground: oklch(0.96 0 0);
+  --card: oklch(0.14 0 0);
+  --card-foreground: oklch(0.96 0 0);
+  --popover: oklch(0.14 0 0);
+  --popover-foreground: oklch(0.96 0 0);
+  --primary: oklch(0.96 0 0);
+  --primary-foreground: oklch(0.1 0 0);
+  --secondary: oklch(0.2 0 0);
+  --secondary-foreground: oklch(0.96 0 0);
+  --muted: oklch(0.2 0 0);
+  --muted-foreground: oklch(0.68 0 0);
+  --accent: oklch(0.25 0 0);
+  --accent-foreground: oklch(0.96 0 0);
+  --destructive: oklch(0.78 0 0);
+  --border: oklch(1 0 0 / 14%);
+  --input: oklch(1 0 0 / 22%);
+  --ring: oklch(0.8 0 0);
+}
+
+@theme inline {
+  --font-sans: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply m-0 min-w-80 bg-background text-foreground antialiased;
+    font-family: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  }
+
+  [lang="dv"] {
+    font-family: var(--font-thaana);
+    font-synthesis: none;
+  }
+
+  :lang(en) {
+    font-family: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--primary) 25%, transparent);
+  }
+}
+
+@layer components {
+  .docs-content section {
+    @apply mb-12;
+  }
+
+  .docs-content h2 {
+    @apply mb-4 mt-10 text-2xl font-semibold tracking-[-0.025em];
+  }
+
+  .docs-content p {
+    @apply my-4 leading-7 text-muted-foreground;
+  }
+
+  .docs-content ul {
+    @apply my-5 list-disc space-y-2 ps-6 text-muted-foreground;
+  }
+
+  .docs-content li {
+    @apply ps-1 leading-7;
+  }
+
+  .docs-content :not(pre) > code {
+    @apply rounded-md border bg-muted px-1.5 py-0.5 font-mono text-[0.875em] text-foreground;
+  }
+}

@@ -1,0 +1,31 @@
+import { Navigate, Route, Routes } from "react-router-dom"
+
+import { DocsLayout } from "@/src/components/docs-layout"
+import { SiteShell } from "@/src/components/site-shell"
+import { BidirectionalContentPage } from "@/src/pages/docs/bidirectional-content"
+import { InputPage, SelectPage } from "@/src/pages/docs/component-pages"
+import { InstallationPage } from "@/src/pages/docs/installation"
+import { IntroductionPage } from "@/src/pages/docs/introduction"
+import { RtlPage } from "@/src/pages/docs/rtl"
+import { HomePage } from "@/src/pages/home"
+import { NotFoundPage } from "@/src/pages/not-found"
+
+export function App() {
+  return (
+    <Routes>
+      <Route element={<SiteShell />}>
+        <Route index element={<HomePage />} />
+        <Route path="docs" element={<Navigate to="/docs/introduction" replace />} />
+        <Route path="docs" element={<DocsLayout />}>
+          <Route path="introduction" element={<IntroductionPage />} />
+          <Route path="installation" element={<InstallationPage />} />
+          <Route path="rtl" element={<RtlPage />} />
+          <Route path="bidirectional-content" element={<BidirectionalContentPage />} />
+          <Route path="components/input" element={<InputPage />} />
+          <Route path="components/select" element={<SelectPage />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
+  )
+}
