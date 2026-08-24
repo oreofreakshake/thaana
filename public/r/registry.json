@@ -32,6 +32,25 @@
       ]
     },
     {
+      "name": "dv-search",
+      "type": "registry:component",
+      "title": "Dhivehi Search",
+      "description": "A direction-aware search input for queries that mix Thaana and Latin text.",
+      "registryDependencies": ["https://thaana.yazak.me/r/dv-input.json"],
+      "files": [
+        {
+          "path": "registry/components/dv-search.tsx",
+          "type": "registry:component",
+          "target": "@components/dv-search.tsx"
+        },
+        {
+          "path": "registry/lib/text-direction.ts",
+          "type": "registry:lib",
+          "target": "@lib/text-direction.ts"
+        }
+      ]
+    },
+    {
       "name": "dv-form-field",
       "type": "registry:component",
       "title": "Dhivehi Form Field",

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dv-search",
+  "title": "Dhivehi Search",
+  "description": "A direction-aware search input for queries that mix Thaana and Latin text.",
+  "registryDependencies": [
+    "https://thaana.yazak.me/r/dv-input.json"
+  ],
+  "files": [
+    {
+      "path": "registry/components/dv-search.tsx",
+      "content": "import * as React from \"react\"\n\nimport { getTextDirection, type TextDirection } from \"../lib/text-direction\"\nimport { DvInput, type DvInputProps } from \"./dv-input\"\n\ntype DvSearchProps = DvInputProps\n\nconst DvSearch = React.forwardRef<HTMLInputElement, DvSearchProps>(\n  ({ dir = \"auto\", lang = \"dv\", type = \"search\", ...props }, ref) => (\n    <DvInput ref={ref} dir={dir} lang={lang} type={type} {...props} />\n  )\n)\n\nDvSearch.displayName = \"DvSearch\"\n\nexport { DvSearch, type DvSearchProps, getTextDirection, type TextDirection }\n",
+      "type": "registry:component",
+      "target": "@components/dv-search.tsx"
+    },
+    {
+      "path": "registry/lib/text-direction.ts",
+      "content": "type TextDirection = \"ltr\" | \"rtl\"\n\nconst rtlLetter =\n  /[\\p{Script=Thaana}\\p{Script=Arabic}\\p{Script=Hebrew}\\p{Script=Syriac}\\p{Script=Nko}\\p{Script=Adlam}]/u\nconst letter = /\\p{Letter}/u\n\nfunction getTextDirection(value: string, fallback: TextDirection = \"ltr\"): TextDirection {\n  for (const character of value) {\n    if (rtlLetter.test(character)) return \"rtl\"\n    if (letter.test(character)) return \"ltr\"\n  }\n\n  return fallback\n}\n\nexport { getTextDirection, type TextDirection }\n",
+      "type": "registry:lib",
+      "target": "@lib/text-direction.ts"
+    }
+  ],
+  "type": "registry:component"
+}

@@ -28,6 +28,7 @@ export const docsNavigation: DocsSection[] = [
     links: [
       { title: "Input", href: "/docs/components/input" },
       { title: "Select", href: "/docs/components/select" },
+      { title: "Search", href: "/docs/components/search" },
       { title: "Form Field", href: "/docs/components/form-field" },
       { title: "Currency Input", href: "/docs/components/currency-input" },
       { title: "Phone Input", href: "/docs/components/phone-input" },
@@ -72,6 +73,14 @@ export const docsOnThisPage: Record<string, DocsLink[]> = {
     { title: "Examples", href: "#examples" },
     { title: "Disabled", href: "#disabled" },
     { title: "Mixed-direction options", href: "#mixed-direction-options" },
+    { title: "RTL behavior", href: "#rtl-behavior" },
+  ],
+  "/docs/components/search": [
+    { title: "Installation", href: "#installation" },
+    { title: "Usage", href: "#usage" },
+    { title: "Examples", href: "#examples" },
+    { title: "English query", href: "#english-query" },
+    { title: "Mixed real-world data", href: "#mixed-data" },
     { title: "RTL behavior", href: "#rtl-behavior" },
   ],
   "/docs/components/form-field": [

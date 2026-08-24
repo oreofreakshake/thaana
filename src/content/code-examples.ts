@@ -16,6 +16,8 @@ export const installInputCommands = shadcnCommands("add oreofreakshake/thaana/dv
 
 export const installSelectCommands = shadcnCommands("add oreofreakshake/thaana/dv-select")
 
+export const installSearchCommands = shadcnCommands("add oreofreakshake/thaana/dv-search")
+
 export const installFormFieldCommands = shadcnCommands("add oreofreakshake/thaana/dv-form-field")
 
 export const installCurrencyInputCommands = shadcnCommands(
@@ -51,6 +53,27 @@ export function IslandField() {
         <SelectItem value="hulhumale">ހުޅުމާލެ</SelectItem>
       </SelectContent>
     </DvSelect>
+  )
+}`
+
+export const searchUsage = `import { useState } from "react"
+
+import { DvSearch, getTextDirection } from "@/components/dv-search"
+
+export function CustomerSearch() {
+  const [query, setQuery] = useState("")
+  const direction = getTextDirection(query)
+
+  return (
+    <div lang="dv" dir="rtl">
+      <DvSearch
+        aria-label="ކަސްޓަމަރެއް ހޯދާ"
+        value={query}
+        onChange={(event) => setQuery(event.currentTarget.value)}
+        placeholder="ހޯދާ..."
+      />
+      <div dir={direction}>{/* Search results */}</div>
+    </div>
   )
 }`
 

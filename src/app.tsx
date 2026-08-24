@@ -13,6 +13,7 @@ import { InputPage, SelectPage } from "@/src/pages/docs/component-pages"
 import { InstallationPage } from "@/src/pages/docs/installation"
 import { IntroductionPage } from "@/src/pages/docs/introduction"
 import { RtlPage } from "@/src/pages/docs/rtl"
+import { SearchPage } from "@/src/pages/docs/search"
 import { HomePage } from "@/src/pages/home"
 import { NotFoundPage } from "@/src/pages/not-found"
 
@@ -29,6 +30,7 @@ export function App() {
           <Route path="bidirectional-content" element={<BidirectionalContentPage />} />
           <Route path="components/input" element={<InputPage />} />
           <Route path="components/select" element={<SelectPage />} />
+          <Route path="components/search" element={<SearchPage />} />
           <Route path="components/form-field" element={<FormFieldPage />} />
           <Route path="components/currency-input" element={<CurrencyInputPage />} />
           <Route path="components/phone-input" element={<PhoneInputPage />} />
