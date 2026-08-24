@@ -24,7 +24,7 @@ type ComponentPageProps = {
   installCommands: PackageCommands
   usage: string
   rtlBehavior: ReactNode
-  children: ReactNode
+  children?: ReactNode
 }
 
 export function ComponentPage({
@@ -51,10 +51,12 @@ export function ComponentPage({
         <CodeBlock>{usage}</CodeBlock>
       </section>
 
-      <section id="examples">
-        <h2>Examples</h2>
-        {children}
-      </section>
+      {children ? (
+        <section id="examples">
+          <h2>Examples</h2>
+          {children}
+        </section>
+      ) : null}
 
       <section id="rtl-behavior">
         <h2>RTL behavior</h2>

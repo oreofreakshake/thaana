@@ -28,6 +28,20 @@ export const installPhoneInputCommands = shadcnCommands("add oreofreakshake/thaa
 
 export const installDataTableCommands = shadcnCommands("add oreofreakshake/thaana/dv-data-table")
 
+export const installDropdownMenuCommands = shadcnCommands(
+  "add oreofreakshake/thaana/dv-dropdown-menu"
+)
+
+export const installPaginationCommands = shadcnCommands("add oreofreakshake/thaana/dv-pagination")
+
+export const installDialogContentCommands = shadcnCommands(
+  "add oreofreakshake/thaana/dv-dialog-content"
+)
+
+export const installCustomerManagementCommands = shadcnCommands(
+  "add oreofreakshake/thaana/customer-management-01"
+)
+
 export const inputUsage = `import { DvInput } from "@/components/dv-input"
 
 export function NameField() {
@@ -125,6 +139,40 @@ const columns: DvDataTableColumn<Customer>[] = [
   columns={columns}
   getRowId={(customer) => customer.id}
 />`
+
+export const dropdownMenuUsage = `import { DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import {
+  DvDropdownMenu,
+  DvDropdownMenuContent,
+} from "@/components/dv-dropdown-menu"
+
+<DvDropdownMenu>
+  <DropdownMenuTrigger>އެކްޝަންތައް</DropdownMenuTrigger>
+  <DvDropdownMenuContent>
+    <DropdownMenuItem>ތަފްޞީލު</DropdownMenuItem>
+    <DropdownMenuItem>ބަދަލު ކުރަން</DropdownMenuItem>
+  </DvDropdownMenuContent>
+</DvDropdownMenu>`
+
+export const paginationUsage = `import { useState } from "react"
+
+import { DvPagination } from "@/components/dv-pagination"
+
+export function ResultsPagination() {
+  const [page, setPage] = useState(3)
+
+  return <DvPagination page={page} totalPages={12} onPageChange={setPage} />
+}`
+
+export const dialogContentUsage = `import { Dialog, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { DvDialogContent } from "@/components/dv-dialog-content"
+
+<Dialog>
+  <DialogTrigger>ބަދަލު ކުރަން</DialogTrigger>
+  <DvDialogContent>
+    <DialogTitle>ކަސްޓަމަރ ބަދަލު ކުރުން</DialogTitle>
+  </DvDialogContent>
+</Dialog>`
 
 export const documentDirection = `<html lang="dv" dir="rtl">`
 

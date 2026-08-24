@@ -10,10 +10,16 @@ import {
 } from "@/src/pages/docs/advanced-component-pages"
 import { BidirectionalContentPage } from "@/src/pages/docs/bidirectional-content"
 import { InputPage, SelectPage } from "@/src/pages/docs/component-pages"
+import { CustomerManagementPage } from "@/src/pages/docs/customer-management"
 import { InstallationPage } from "@/src/pages/docs/installation"
 import { IntroductionPage } from "@/src/pages/docs/introduction"
 import { RtlPage } from "@/src/pages/docs/rtl"
 import { SearchPage } from "@/src/pages/docs/search"
+import {
+  DialogContentPage,
+  DropdownMenuPage,
+  PaginationPage,
+} from "@/src/pages/docs/workflow-component-pages"
 import { HomePage } from "@/src/pages/home"
 import { NotFoundPage } from "@/src/pages/not-found"
 
@@ -35,6 +41,10 @@ export function App() {
           <Route path="components/currency-input" element={<CurrencyInputPage />} />
           <Route path="components/phone-input" element={<PhoneInputPage />} />
           <Route path="components/data-table" element={<DataTablePage />} />
+          <Route path="components/dropdown-menu" element={<DropdownMenuPage />} />
+          <Route path="components/pagination" element={<PaginationPage />} />
+          <Route path="components/dialog" element={<DialogContentPage />} />
+          <Route path="blocks/customer-management" element={<CustomerManagementPage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Route>

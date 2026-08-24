@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dv-dropdown-menu",
+  "title": "Dhivehi Dropdown Menu",
+  "description": "A shadcn Dropdown Menu composition with RTL behavior and a Dhivehi portal boundary.",
+  "registryDependencies": [
+    "dropdown-menu"
+  ],
+  "files": [
+    {
+      "path": "registry/components/dv-dropdown-menu.tsx",
+      "content": "import type * as React from \"react\"\n\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuSubTrigger,\n} from \"@/components/ui/dropdown-menu\"\nimport { cn } from \"@/lib/utils\"\n\ntype DvDropdownMenuProps = React.ComponentProps<typeof DropdownMenu>\ntype DvDropdownMenuContentProps = React.ComponentProps<typeof DropdownMenuContent>\ntype DvDropdownMenuSubTriggerProps = React.ComponentProps<typeof DropdownMenuSubTrigger>\n\nfunction DvDropdownMenu({ dir = \"rtl\", ...props }: DvDropdownMenuProps) {\n  return <DropdownMenu dir={dir} {...props} />\n}\n\nfunction DvDropdownMenuContent({ lang = \"dv\", ...props }: DvDropdownMenuContentProps) {\n  return <DropdownMenuContent lang={lang} {...props} />\n}\n\nfunction DvDropdownMenuSubTrigger({ className, ...props }: DvDropdownMenuSubTriggerProps) {\n  return (\n    <DropdownMenuSubTrigger\n      className={cn(\"rtl:[&>svg:last-child]:rotate-180\", className)}\n      {...props}\n    />\n  )\n}\n\nexport {\n  DvDropdownMenu,\n  DvDropdownMenuContent,\n  type DvDropdownMenuContentProps,\n  type DvDropdownMenuProps,\n  DvDropdownMenuSubTrigger,\n  type DvDropdownMenuSubTriggerProps,\n}\n",
+      "type": "registry:component",
+      "target": "@components/dv-dropdown-menu.tsx"
+    }
+  ],
+  "type": "registry:component"
+}

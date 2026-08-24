@@ -26,6 +26,9 @@ export function SiteHeader() {
           <NavLink to="/docs/components/input" className={navClass}>
             Components
           </NavLink>
+          <NavLink to="/docs/blocks/customer-management" className={navClass}>
+            Blocks
+          </NavLink>
         </nav>
 
         <div className="ms-auto flex items-center gap-1">

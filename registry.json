@@ -65,6 +65,49 @@
       ]
     },
     {
+      "name": "dv-dropdown-menu",
+      "type": "registry:component",
+      "title": "Dhivehi Dropdown Menu",
+      "description": "A shadcn Dropdown Menu composition with RTL behavior and a Dhivehi portal boundary.",
+      "registryDependencies": ["dropdown-menu"],
+      "files": [
+        {
+          "path": "registry/components/dv-dropdown-menu.tsx",
+          "type": "registry:component",
+          "target": "@components/dv-dropdown-menu.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dv-pagination",
+      "type": "registry:component",
+      "title": "Dhivehi Pagination",
+      "description": "Controlled pagination with logical RTL ordering, directional icons, and accessible Dhivehi labels.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["pagination"],
+      "files": [
+        {
+          "path": "registry/components/dv-pagination.tsx",
+          "type": "registry:component",
+          "target": "@components/dv-pagination.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dv-dialog-content",
+      "type": "registry:component",
+      "title": "Dhivehi Dialog Content",
+      "description": "A portal-safe shadcn Dialog content boundary with Dhivehi language and RTL defaults.",
+      "registryDependencies": ["dialog"],
+      "files": [
+        {
+          "path": "registry/components/dv-dialog-content.tsx",
+          "type": "registry:component",
+          "target": "@components/dv-dialog-content.tsx"
+        }
+      ]
+    },
+    {
       "name": "dv-currency-input",
       "type": "registry:component",
       "title": "Dhivehi Currency Input",
@@ -102,13 +145,41 @@
         "table",
         "button",
         "dropdown-menu",
-        "https://thaana.yazak.me/r/dv-input.json"
+        "https://thaana.yazak.me/r/dv-search.json"
       ],
       "files": [
         {
           "path": "registry/components/dv-data-table.tsx",
           "type": "registry:component",
           "target": "@components/dv-data-table.tsx"
+        }
+      ]
+    },
+    {
+      "name": "customer-management-01",
+      "type": "registry:block",
+      "title": "Customer Management",
+      "description": "A realistic Dhivehi customer-management interface with mixed-direction data, search, pagination, row actions, and an edit dialog.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "button",
+        "dialog",
+        "dropdown-menu",
+        "https://thaana.yazak.me/r/dv-search.json",
+        "https://thaana.yazak.me/r/dv-data-table.json",
+        "https://thaana.yazak.me/r/dv-pagination.json",
+        "https://thaana.yazak.me/r/dv-dropdown-menu.json",
+        "https://thaana.yazak.me/r/dv-dialog-content.json",
+        "https://thaana.yazak.me/r/dv-phone-input.json",
+        "https://thaana.yazak.me/r/dv-currency-input.json",
+        "https://thaana.yazak.me/r/dv-form-field.json",
+        "https://thaana.yazak.me/r/dv-input.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/customer-management-01.tsx",
+          "type": "registry:block",
+          "target": "@components/customer-management-01.tsx"
         }
       ]
     }

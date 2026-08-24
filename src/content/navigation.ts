@@ -33,7 +33,14 @@ export const docsNavigation: DocsSection[] = [
       { title: "Currency Input", href: "/docs/components/currency-input" },
       { title: "Phone Input", href: "/docs/components/phone-input" },
       { title: "Data Table", href: "/docs/components/data-table" },
+      { title: "Dropdown Menu", href: "/docs/components/dropdown-menu" },
+      { title: "Pagination", href: "/docs/components/pagination" },
+      { title: "Dialog", href: "/docs/components/dialog" },
     ],
+  },
+  {
+    title: "Blocks",
+    links: [{ title: "Customer Management", href: "/docs/blocks/customer-management" }],
   },
 ]
 
@@ -110,5 +117,27 @@ export const docsOnThisPage: Record<string, DocsLink[]> = {
     { title: "Examples", href: "#examples" },
     { title: "Column model", href: "#column-model" },
     { title: "RTL behavior", href: "#rtl-behavior" },
+  ],
+  "/docs/components/dropdown-menu": [
+    { title: "Installation", href: "#installation" },
+    { title: "Usage", href: "#usage" },
+    { title: "RTL behavior", href: "#rtl-behavior" },
+  ],
+  "/docs/components/pagination": [
+    { title: "Installation", href: "#installation" },
+    { title: "Usage", href: "#usage" },
+    { title: "RTL behavior", href: "#rtl-behavior" },
+  ],
+  "/docs/components/dialog": [
+    { title: "Installation", href: "#installation" },
+    { title: "Usage", href: "#usage" },
+    { title: "Examples", href: "#examples" },
+    { title: "Portal boundary", href: "#portal-boundary" },
+    { title: "RTL behavior", href: "#rtl-behavior" },
+  ],
+  "/docs/blocks/customer-management": [
+    { title: "Live block", href: "#live-block" },
+    { title: "Installation", href: "#installation" },
+    { title: "Architecture", href: "#architecture" },
   ],
 }

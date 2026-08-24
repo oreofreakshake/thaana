@@ -15,7 +15,7 @@
     "lint": "biome lint .",
     "registry:build": "shadcn build",
     "registry:validate": "shadcn registry validate ./registry.json",
-    "test": "node --test tests/*.test.mjs",
+    "test": "node --test tests/text-direction.test.mjs && vitest run tests/components.test.tsx --environment jsdom",
     "typecheck": "tsc --noEmit",
     "validate": "pnpm check && pnpm typecheck && pnpm test && pnpm registry:validate && pnpm build"
   },
@@ -33,14 +33,17 @@
   "devDependencies": {
     "@biomejs/biome": "2.5.10",
     "@tailwindcss/vite": "^4.3.3",
+    "@testing-library/react": "^16.3.2",
     "@types/node": "^24.3.0",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.2.4",
     "@vitejs/plugin-react": "^6.1.0",
+    "jsdom": "^30.0.1",
     "shadcn": "^4.16.2",
     "tailwindcss": "^4.1.12",
     "typescript": "^5.9.2",
-    "vite": "^8.2.2"
+    "vite": "^8.2.2",
+    "vitest": "^4.1.11"
   },
   "packageManager": "pnpm@10.17.1"
 }

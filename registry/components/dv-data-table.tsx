@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/table"
 import { cn } from "@/lib/utils"
 
-import { DvInput } from "./dv-input"
+import { DvSearch } from "./dv-search"
 
 type DvDataTableColumn<TData> = {
   id: string
@@ -50,6 +50,10 @@ type DvDataTableProps<TData> = {
   searchPlaceholder?: string
   emptyMessage?: React.ReactNode
   pageSize?: number
+  dir?: "ltr" | "rtl"
+  lang?: string
+  showSearch?: boolean
+  showPagination?: boolean
   className?: string
 }
 
@@ -68,6 +72,10 @@ function DvDataTable<TData>({
   searchPlaceholder = "ހޯދާ...",
   emptyMessage = "ޑޭޓާއެއް ނުފެނުނު",
   pageSize = 10,
+  dir = "rtl",
+  lang = "dv",
+  showSearch = true,
+  showPagination = true,
   className,
 }: DvDataTableProps<TData>) {
   const [query, setQuery] = React.useState("")
@@ -88,10 +96,9 @@ function DvDataTable<TData>({
   const safePageSize = Math.max(1, pageSize)
   const pageCount = Math.max(1, Math.ceil(filteredData.length / safePageSize))
   const currentPage = Math.min(page, pageCount - 1)
-  const visibleRows = filteredData.slice(
-    currentPage * safePageSize,
-    currentPage * safePageSize + safePageSize
-  )
+  const visibleRows = showPagination
+    ? filteredData.slice(currentPage * safePageSize, currentPage * safePageSize + safePageSize)
+    : filteredData
 
   function updateQuery(event: React.ChangeEvent<HTMLInputElement>) {
     setQuery(event.currentTarget.value)
@@ -99,20 +106,22 @@ function DvDataTable<TData>({
   }
 
   return (
-    <div lang="dv" dir="rtl" data-slot="dv-data-table" className={cn("grid gap-4", className)}>
-      <div className="relative max-w-sm">
-        <SearchIcon
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 start-3 my-auto size-4 text-muted-foreground"
-        />
-        <DvInput
-          value={query}
-          onChange={updateQuery}
-          placeholder={searchPlaceholder}
-          aria-label={searchPlaceholder}
-          className="ps-9"
-        />
-      </div>
+    <div lang={lang} dir={dir} data-slot="dv-data-table" className={cn("grid gap-4", className)}>
+      {showSearch && (
+        <div className="relative max-w-sm">
+          <SearchIcon
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 start-3 my-auto size-4 text-muted-foreground"
+          />
+          <DvSearch
+            value={query}
+            onChange={updateQuery}
+            placeholder={searchPlaceholder}
+            aria-label={searchPlaceholder}
+            className="ps-9"
+          />
+        </div>
+      )}
 
       <div className="overflow-hidden rounded-md border">
         <Table>
@@ -149,13 +158,13 @@ function DvDataTable<TData>({
                   ))}
                   {actions && (
                     <TableCell className="w-12">
-                      <DropdownMenu dir="rtl">
+                      <DropdownMenu dir={dir}>
                         <DropdownMenuTrigger asChild>
                           <Button variant="ghost" size="icon-sm" aria-label="އިތުރު އެކްޝަން">
                             <MoreHorizontalIcon aria-hidden="true" />
                           </Button>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent lang="dv" align="end">
+                        <DropdownMenuContent lang={lang} align="end">
                           {actions(row).map((action) => (
                             <DropdownMenuItem
                               key={action.id}
@@ -186,36 +195,46 @@ function DvDataTable<TData>({
         </Table>
       </div>
 
-      <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
-        <span>
-          ޖުމްލަ <bdi lang="en">{filteredData.length}</bdi>
-        </span>
-        <div className="flex items-center gap-2">
+      {showPagination && (
+        <div className="flex flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
           <span>
-            <bdi lang="en">{currentPage + 1}</bdi> / <bdi lang="en">{pageCount}</bdi>
+            ޖުމްލަ <bdi lang="en">{filteredData.length}</bdi>
           </span>
-          <Button
-            type="button"
-            variant="outline"
-            size="icon-sm"
-            disabled={currentPage === 0}
-            onClick={() => setPage((value) => Math.max(0, value - 1))}
-            aria-label="ކުރީގެ ޞަފްޙާ"
-          >
-            <ChevronRightIcon aria-hidden="true" />
-          </Button>
-          <Button
-            type="button"
-            variant="outline"
-            size="icon-sm"
-            disabled={currentPage >= pageCount - 1}
-            onClick={() => setPage((value) => Math.min(pageCount - 1, value + 1))}
-            aria-label="ދެން އޮތް ޞަފްޙާ"
-          >
-            <ChevronLeftIcon aria-hidden="true" />
-          </Button>
+          <div className="flex items-center gap-2">
+            <span>
+              <bdi lang="en">{currentPage + 1}</bdi> / <bdi lang="en">{pageCount}</bdi>
+            </span>
+            <Button
+              type="button"
+              variant="outline"
+              size="icon-sm"
+              disabled={currentPage === 0}
+              onClick={() => setPage((value) => Math.max(0, value - 1))}
+              aria-label="ކުރީގެ ޞަފްޙާ"
+            >
+              {dir === "rtl" ? (
+                <ChevronRightIcon aria-hidden="true" />
+              ) : (
+                <ChevronLeftIcon aria-hidden="true" />
+              )}
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              size="icon-sm"
+              disabled={currentPage >= pageCount - 1}
+              onClick={() => setPage((value) => Math.min(pageCount - 1, value + 1))}
+              aria-label="ދެން އޮތް ޞަފްޙާ"
+            >
+              {dir === "rtl" ? (
+                <ChevronLeftIcon aria-hidden="true" />
+              ) : (
+                <ChevronRightIcon aria-hidden="true" />
+              )}
+            </Button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

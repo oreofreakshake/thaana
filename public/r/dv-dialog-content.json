@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dv-dialog-content",
+  "title": "Dhivehi Dialog Content",
+  "description": "A portal-safe shadcn Dialog content boundary with Dhivehi language and RTL defaults.",
+  "registryDependencies": [
+    "dialog"
+  ],
+  "files": [
+    {
+      "path": "registry/components/dv-dialog-content.tsx",
+      "content": "import type * as React from \"react\"\n\nimport { DialogContent } from \"@/components/ui/dialog\"\n\ntype DvDialogContentProps = React.ComponentProps<typeof DialogContent>\n\nfunction DvDialogContent({ dir = \"rtl\", lang = \"dv\", ...props }: DvDialogContentProps) {\n  return <DialogContent dir={dir} lang={lang} {...props} />\n}\n\nexport { DvDialogContent, type DvDialogContentProps }\n",
+      "type": "registry:component",
+      "target": "@components/dv-dialog-content.tsx"
+    }
+  ],
+  "type": "registry:component"
+}
