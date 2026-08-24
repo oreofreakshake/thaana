@@ -51,6 +51,26 @@
       ]
     },
     {
+      "name": "dv-combobox",
+      "type": "registry:component",
+      "title": "Dhivehi Combobox",
+      "description": "A searchable mixed-direction combobox with adaptive query direction and isolated option labels.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "command", "popover"],
+      "files": [
+        {
+          "path": "registry/components/dv-combobox.tsx",
+          "type": "registry:component",
+          "target": "@components/dv-combobox.tsx"
+        },
+        {
+          "path": "registry/lib/text-direction.ts",
+          "type": "registry:lib",
+          "target": "@lib/text-direction.ts"
+        }
+      ]
+    },
+    {
       "name": "dv-form-field",
       "type": "registry:component",
       "title": "Dhivehi Form Field",
@@ -180,6 +200,30 @@
           "path": "registry/blocks/customer-management-01.tsx",
           "type": "registry:block",
           "target": "@components/customer-management-01.tsx"
+        }
+      ]
+    },
+    {
+      "name": "invoice-01",
+      "type": "registry:block",
+      "title": "Invoice",
+      "description": "An editable Dhivehi invoice form with customer lookup, line items, Rufiyaa totals, tax, and notes.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "button",
+        "textarea",
+        "https://thaana.yazak.me/r/dv-combobox.json",
+        "https://thaana.yazak.me/r/dv-input.json",
+        "https://thaana.yazak.me/r/dv-form-field.json",
+        "https://thaana.yazak.me/r/dv-currency-input.json",
+        "https://thaana.yazak.me/r/dv-phone-input.json",
+        "https://thaana.yazak.me/r/dv-data-table.json"
+      ],
+      "files": [
+        {
+          "path": "registry/blocks/invoice-01.tsx",
+          "type": "registry:block",
+          "target": "@components/invoice-01.tsx"
         }
       ]
     }

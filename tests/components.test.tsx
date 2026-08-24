@@ -1,13 +1,68 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react"
+import * as React from "react"
 import { afterEach, describe, expect, it, vi } from "vitest"
 
 import { Dialog, DialogTitle } from "@/components/ui/dialog"
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
+import { DvCombobox } from "@/registry/components/dv-combobox"
 import { DvDialogContent } from "@/registry/components/dv-dialog-content"
 import { DvDropdownMenu, DvDropdownMenuContent } from "@/registry/components/dv-dropdown-menu"
+import { DvFormField } from "@/registry/components/dv-form-field"
 import { DvPagination } from "@/registry/components/dv-pagination"
+import { DvPhoneInput } from "@/registry/components/dv-phone-input"
+
+class ResizeObserverMock {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+vi.stubGlobal("ResizeObserver", ResizeObserverMock)
+Element.prototype.scrollIntoView = vi.fn()
 
 afterEach(cleanup)
+
+describe("DvCombobox", () => {
+  const options = [
+    { value: "ahmed", label: "އަހުމަދު އަލީ", keywords: ["Ahmed Ali"] },
+    { value: "invoice", label: "Invoice INV-2026-0042", dir: "ltr" as const },
+  ]
+
+  it("uses local RTL defaults and supports uncontrolled selection", () => {
+    const onValueChange = vi.fn()
+    render(
+      <DvCombobox options={options} defaultOpen onValueChange={onValueChange} aria-label="ހޮވާ" />
+    )
+
+    const trigger = screen.getByLabelText("ހޮވާ")
+    const search = screen.getByLabelText("ހޯދާ...")
+    expect(trigger.getAttribute("dir")).toBe("rtl")
+    expect(search.getAttribute("dir")).toBe("rtl")
+    expect(screen.getByText("Invoice INV-2026-0042").closest("bdi")?.getAttribute("dir")).toBe(
+      "ltr"
+    )
+
+    fireEvent.change(search, { target: { value: "Invoice" } })
+    expect(search.getAttribute("dir")).toBe("ltr")
+    fireEvent.click(screen.getByText("Invoice INV-2026-0042"))
+
+    expect(onValueChange).toHaveBeenCalledWith("invoice")
+    expect(trigger.textContent).toContain("Invoice INV-2026-0042")
+  })
+})
+
+describe("DvPhoneInput", () => {
+  it("formats a full +960 default value", () => {
+    render(
+      <React.StrictMode>
+        <DvFormField label="Phone">
+          <DvPhoneInput defaultValue="+9607771234" />
+        </DvFormField>
+      </React.StrictMode>
+    )
+    expect((screen.getByLabelText("Phone") as HTMLInputElement).value).toBe("777 1234")
+  })
+})
 
 describe("DvDropdownMenu", () => {
   it.each([

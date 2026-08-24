@@ -3,6 +3,22 @@
   "version": "0.0.0",
   "private": true,
   "description": "Dhivehi-first shadcn registry for React and TypeScript projects.",
+  "homepage": "https://thaana.yazak.me",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oreofreakshake/thaana.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oreofreakshake/thaana/issues"
+  },
+  "keywords": [
+    "dhivehi",
+    "thaana",
+    "rtl",
+    "shadcn",
+    "react",
+    "typescript"
+  ],
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -23,6 +39,7 @@
     "@fontsource-variable/dm-sans": "^5.3.0",
     "class-variance-authority": "0.7.1",
     "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
     "lucide-react": "^1.33.0",
     "radix-ui": "^1.6.7",
     "react": "^19.1.1",

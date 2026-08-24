@@ -24,11 +24,24 @@ export const docsNavigation: DocsSection[] = [
     ],
   },
   {
+    title: "Patterns",
+    links: [
+      { title: "Mixed Dhivehi and English", href: "/docs/patterns/mixed-content" },
+      { title: "Search direction", href: "/docs/patterns/search-direction" },
+      { title: "Currency", href: "/docs/patterns/currency" },
+      { title: "Phone numbers", href: "/docs/patterns/phone-numbers" },
+      { title: "RTL forms", href: "/docs/patterns/rtl-forms" },
+      { title: "RTL tables", href: "/docs/patterns/rtl-tables" },
+      { title: "Portals in RTL", href: "/docs/patterns/portals" },
+    ],
+  },
+  {
     title: "Components",
     links: [
       { title: "Input", href: "/docs/components/input" },
       { title: "Select", href: "/docs/components/select" },
       { title: "Search", href: "/docs/components/search" },
+      { title: "Combobox", href: "/docs/components/combobox" },
       { title: "Form Field", href: "/docs/components/form-field" },
       { title: "Currency Input", href: "/docs/components/currency-input" },
       { title: "Phone Input", href: "/docs/components/phone-input" },
@@ -40,7 +53,10 @@ export const docsNavigation: DocsSection[] = [
   },
   {
     title: "Blocks",
-    links: [{ title: "Customer Management", href: "/docs/blocks/customer-management" }],
+    links: [
+      { title: "Customer Management", href: "/docs/blocks/customer-management" },
+      { title: "Invoice", href: "/docs/blocks/invoice" },
+    ],
   },
 ]
 
@@ -88,6 +104,13 @@ export const docsOnThisPage: Record<string, DocsLink[]> = {
     { title: "Examples", href: "#examples" },
     { title: "English query", href: "#english-query" },
     { title: "Mixed real-world data", href: "#mixed-data" },
+    { title: "RTL behavior", href: "#rtl-behavior" },
+  ],
+  "/docs/components/combobox": [
+    { title: "Installation", href: "#installation" },
+    { title: "Usage", href: "#usage" },
+    { title: "Examples", href: "#examples" },
+    { title: "Option model", href: "#option-model" },
     { title: "RTL behavior", href: "#rtl-behavior" },
   ],
   "/docs/components/form-field": [
@@ -140,4 +163,25 @@ export const docsOnThisPage: Record<string, DocsLink[]> = {
     { title: "Installation", href: "#installation" },
     { title: "Architecture", href: "#architecture" },
   ],
+  "/docs/blocks/invoice": [
+    { title: "Live block", href: "#live-block" },
+    { title: "Installation", href: "#installation" },
+    { title: "Architecture", href: "#architecture" },
+  ],
+}
+
+for (const href of [
+  "/docs/patterns/mixed-content",
+  "/docs/patterns/search-direction",
+  "/docs/patterns/currency",
+  "/docs/patterns/phone-numbers",
+  "/docs/patterns/rtl-forms",
+  "/docs/patterns/rtl-tables",
+  "/docs/patterns/portals",
+]) {
+  docsOnThisPage[href] = [
+    { title: "Convention", href: "#convention" },
+    { title: "Example", href: "#example" },
+    { title: "Checklist", href: "#checklist" },
+  ]
 }

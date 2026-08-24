@@ -18,6 +18,8 @@ export const installSelectCommands = shadcnCommands("add oreofreakshake/thaana/d
 
 export const installSearchCommands = shadcnCommands("add oreofreakshake/thaana/dv-search")
 
+export const installComboboxCommands = shadcnCommands("add oreofreakshake/thaana/dv-combobox")
+
 export const installFormFieldCommands = shadcnCommands("add oreofreakshake/thaana/dv-form-field")
 
 export const installCurrencyInputCommands = shadcnCommands(
@@ -41,6 +43,8 @@ export const installDialogContentCommands = shadcnCommands(
 export const installCustomerManagementCommands = shadcnCommands(
   "add oreofreakshake/thaana/customer-management-01"
 )
+
+export const installInvoiceCommands = shadcnCommands("add oreofreakshake/thaana/invoice-01")
 
 export const inputUsage = `import { DvInput } from "@/components/dv-input"
 
@@ -88,6 +92,32 @@ export function CustomerSearch() {
       />
       <div dir={direction}>{/* Search results */}</div>
     </div>
+  )
+}`
+
+export const comboboxUsage = `import { useState } from "react"
+
+import {
+  DvCombobox,
+  type DvComboboxOption,
+} from "@/components/dv-combobox"
+
+const customers: DvComboboxOption[] = [
+  { value: "ahmed-dv", label: "އަހުމަދު" },
+  { value: "ahmed-en", label: "Ahmed Ali" },
+  { value: "invoice", label: "INV-2026-001" },
+]
+
+export function CustomerCombobox() {
+  const [value, setValue] = useState("")
+
+  return (
+    <DvCombobox
+      options={customers}
+      value={value}
+      onValueChange={setValue}
+      aria-label="ކަސްޓަމަރެއް ހޮވާ"
+    />
   )
 }`
 
@@ -176,7 +206,7 @@ import { DvDialogContent } from "@/components/dv-dialog-content"
 
 export const documentDirection = `<html lang="dv" dir="rtl">`
 
-export const directionProvider = `<DirectionProvider direction="rtl">
+export const directionProvider = `<DirectionProvider dir="rtl">
   <App />
 </DirectionProvider>`
 
