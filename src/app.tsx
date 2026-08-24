@@ -12,6 +12,7 @@ import { BidirectionalContentPage } from "@/src/pages/docs/bidirectional-content
 import { ComboboxPage } from "@/src/pages/docs/combobox"
 import { InputPage, SelectPage } from "@/src/pages/docs/component-pages"
 import { CustomerManagementPage } from "@/src/pages/docs/customer-management"
+import { DatePickerPage } from "@/src/pages/docs/date-picker"
 import { InstallationPage } from "@/src/pages/docs/installation"
 import { IntroductionPage } from "@/src/pages/docs/introduction"
 import { InvoicePage } from "@/src/pages/docs/invoice"
@@ -57,6 +58,7 @@ export function App() {
           <Route path="components/select" element={<SelectPage />} />
           <Route path="components/search" element={<SearchPage />} />
           <Route path="components/combobox" element={<ComboboxPage />} />
+          <Route path="components/date-picker" element={<DatePickerPage />} />
           <Route path="components/form-field" element={<FormFieldPage />} />
           <Route path="components/currency-input" element={<CurrencyInputPage />} />
           <Route path="components/phone-input" element={<PhoneInputPage />} />

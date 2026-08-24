@@ -71,6 +71,31 @@
       ]
     },
     {
+      "name": "dv-date-picker",
+      "type": "registry:component",
+      "title": "Dhivehi Date Picker",
+      "description": "A shadcn-style Gregorian and Umm al-Qura Hijri date picker with Dhivehi month and weekday labels, RTL defaults, and single or range selection.",
+      "dependencies": ["@daypicker/hijri@^10.0.1", "react-day-picker@^10.0.1", "lucide-react"],
+      "registryDependencies": ["calendar", "popover"],
+      "files": [
+        {
+          "path": "registry/components/dv-date-picker.tsx",
+          "type": "registry:component",
+          "target": "@components/dv-date-picker.tsx"
+        },
+        {
+          "path": "registry/components/dv-gregorian-calendar.tsx",
+          "type": "registry:component",
+          "target": "@components/dv-gregorian-calendar.tsx"
+        },
+        {
+          "path": "registry/components/dv-hijri-calendar.tsx",
+          "type": "registry:component",
+          "target": "@components/dv-hijri-calendar.tsx"
+        }
+      ]
+    },
+    {
       "name": "dv-form-field",
       "type": "registry:component",
       "title": "Dhivehi Form Field",
@@ -213,6 +238,7 @@
         "button",
         "textarea",
         "https://thaana.yazak.me/r/dv-combobox.json",
+        "https://thaana.yazak.me/r/dv-date-picker.json",
         "https://thaana.yazak.me/r/dv-input.json",
         "https://thaana.yazak.me/r/dv-form-field.json",
         "https://thaana.yazak.me/r/dv-currency-input.json",

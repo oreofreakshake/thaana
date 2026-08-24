@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { DvCombobox, type DvComboboxOption } from "../components/dv-combobox"
 import { DvCurrencyInput, RufiyaaSymbol } from "../components/dv-currency-input"
 import { DvDataTable, type DvDataTableColumn } from "../components/dv-data-table"
+import { DvDatePicker, formatGregorianDate } from "../components/dv-date-picker"
 import { DvFormField } from "../components/dv-form-field"
 import { DvInput } from "../components/dv-input"
 import { DvPhoneInput } from "../components/dv-phone-input"
@@ -67,6 +68,7 @@ function Money({ value }: { value: number }) {
 
 export function Invoice01() {
   const [customerId, setCustomerId] = React.useState(customers[0].id)
+  const [invoiceDate, setInvoiceDate] = React.useState<Date | undefined>(new Date(2026, 7, 24))
   const [items, setItems] = React.useState(initialItems)
   const [taxRate, setTaxRate] = React.useState(8)
   const customer = customers.find((item) => item.id === customerId) ?? customers[0]
@@ -170,9 +172,17 @@ export function Invoice01() {
           <p className="text-sm text-muted-foreground">އިންވޮއިސް</p>
           <h2 className="mt-1 text-2xl font-semibold">އިންވޮއިސް އެއް އުފައްދާ</h2>
         </div>
-        <div dir="ltr" lang="en" className="grid gap-1 text-sm text-muted-foreground sm:text-end">
-          <span className="font-medium text-foreground">INV-2026-0042</span>
-          <span>24 Aug 2026</span>
+        <div className="grid gap-1 text-sm text-muted-foreground sm:text-end">
+          <bdi dir="ltr" lang="en" className="font-medium text-foreground">
+            INV-2026-0042
+          </bdi>
+          {invoiceDate ? (
+            <bdi dir="rtl" lang="dv">
+              {formatGregorianDate(invoiceDate)}
+            </bdi>
+          ) : (
+            <span>ތާރީޚެއް ނުހޮވާ</span>
+          )}
         </div>
       </header>
 
@@ -190,8 +200,13 @@ export function Invoice01() {
           <DvFormField label="އިންވޮއިސް ނަންބަރު">
             <DvInput defaultValue="INV-2026-0042" dir="ltr" lang="en" />
           </DvFormField>
-          <DvFormField label="ތާރީޚު">
-            <DvInput type="date" defaultValue="2026-08-24" dir="ltr" lang="en" />
+          <DvFormField label="ތާރީޚު" required>
+            <DvDatePicker
+              value={invoiceDate}
+              onValueChange={setInvoiceDate}
+              triggerClassName="has-[>svg]:px-2"
+              calendarProps={{ defaultMonth: invoiceDate }}
+            />
           </DvFormField>
         </div>
       </div>

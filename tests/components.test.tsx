@@ -5,9 +5,11 @@ import { afterEach, describe, expect, it, vi } from "vitest"
 import { Dialog, DialogTitle } from "@/components/ui/dialog"
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { DvCombobox } from "@/registry/components/dv-combobox"
+import { DvDatePicker, formatGregorianDate } from "@/registry/components/dv-date-picker"
 import { DvDialogContent } from "@/registry/components/dv-dialog-content"
 import { DvDropdownMenu, DvDropdownMenuContent } from "@/registry/components/dv-dropdown-menu"
 import { DvFormField } from "@/registry/components/dv-form-field"
+import { formatHijriDate } from "@/registry/components/dv-hijri-calendar"
 import { DvPagination } from "@/registry/components/dv-pagination"
 import { DvPhoneInput } from "@/registry/components/dv-phone-input"
 
@@ -48,6 +50,33 @@ describe("DvCombobox", () => {
 
     expect(onValueChange).toHaveBeenCalledWith("invoice")
     expect(trigger.textContent).toContain("Invoice INV-2026-0042")
+  })
+})
+
+describe("DvDatePicker", () => {
+  it("formats Gregorian dates with Dhivehi month names", () => {
+    expect(formatGregorianDate(new Date(2026, 7, 26))).toBe("26 އޯގަސްޓް 2026")
+  })
+
+  it("formats dates with the Umm al-Qura Hijri calendar", () => {
+    expect(formatHijriDate(new Date(2026, 7, 24))).toBe("11 ރަބީޢުލް އައްވަލް 1448")
+  })
+
+  it("uses local Dhivehi and RTL defaults", () => {
+    render(<DvDatePicker calendar="hijri" defaultValue={new Date(2026, 7, 24)} />)
+
+    const trigger = screen.getByRole("button", { name: "ތާރީޚެއް ހޮވާ" })
+    expect(trigger.getAttribute("dir")).toBe("rtl")
+    expect(trigger.getAttribute("lang")).toBe("dv")
+    expect(trigger.textContent).toContain("1448")
+  })
+
+  it("uses Gregorian dates by default and constrains long labels", () => {
+    render(<DvDatePicker defaultValue={new Date(2026, 7, 24)} />)
+
+    const trigger = screen.getByRole("button", { name: "ތާރީޚެއް ހޮވާ" })
+    expect(trigger.textContent).toContain("24 އޯގަސްޓް 2026")
+    expect(trigger.querySelector("bdi")?.classList.contains("truncate")).toBe(true)
   })
 })
 

@@ -37,9 +37,9 @@ export function InvoicePage() {
       <section id="architecture">
         <h2>Architecture</h2>
         <p>
-          This block composes DvCombobox, DvFormField, DvInput, DvPhoneInput, DvCurrencyInput, and
-          DvDataTable. It demonstrates invoice UI and bidi boundaries without pretending to be an
-          accounting engine or prescribing persistence, tax, or numbering rules.
+          This block composes DvCombobox, DvDatePicker, DvFormField, DvInput, DvPhoneInput,
+          DvCurrencyInput, and DvDataTable. It demonstrates invoice UI and bidi boundaries without
+          pretending to be an accounting engine or prescribing persistence, tax, or numbering rules.
         </p>
       </section>
     </DocsPage>

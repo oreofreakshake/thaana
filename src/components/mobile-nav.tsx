@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 import { Button } from "@/components/ui/button"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
@@ -99,12 +99,7 @@ type MobileLinkProps = {
 }
 
 function MobileLink({ href, children, onOpenChange }: MobileLinkProps) {
-  const navigate = useNavigate()
-
-  function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
-    event.preventDefault()
-    navigate(href)
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" })
+  function handleClick() {
     onOpenChange?.(false)
   }
 

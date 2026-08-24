@@ -20,6 +20,8 @@ export const installSearchCommands = shadcnCommands("add oreofreakshake/thaana/d
 
 export const installComboboxCommands = shadcnCommands("add oreofreakshake/thaana/dv-combobox")
 
+export const installDatePickerCommands = shadcnCommands("add oreofreakshake/thaana/dv-date-picker")
+
 export const installFormFieldCommands = shadcnCommands("add oreofreakshake/thaana/dv-form-field")
 
 export const installCurrencyInputCommands = shadcnCommands(
@@ -119,6 +121,16 @@ export function CustomerCombobox() {
       aria-label="ކަސްޓަމަރެއް ހޮވާ"
     />
   )
+}`
+
+export const datePickerUsage = `import { useState } from "react"
+
+import { DvDatePicker } from "@/components/dv-date-picker"
+
+export function InvoiceDate() {
+  const [date, setDate] = useState<Date>()
+
+  return <DvDatePicker value={date} onValueChange={setDate} />
 }`
 
 export const formFieldUsage = `import { DvFormField } from "@/components/dv-form-field"
