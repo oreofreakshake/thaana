@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dv-island-picker",
+  "title": "Dhivehi Island Picker",
+  "description": "A controlled mixed-language island picker with optional atoll filtering.",
+  "registryDependencies": [
+    "https://thaana.yazak.me/r/dv-combobox.json"
+  ],
+  "files": [
+    {
+      "path": "registry/components/dv-island-picker.tsx",
+      "content": "\"use client\"\n\nimport type { DvIsland } from \"../lib/location-types\"\nimport { DvCombobox } from \"./dv-combobox\"\n\ntype DvIslandPickerProps = {\n  islands: readonly DvIsland[]\n  atollId?: string\n  value?: string\n  onValueChange: (value: string) => void\n  placeholder?: string\n  searchPlaceholder?: string\n  emptyMessage?: string\n  disabled?: boolean\n  lang?: string\n  dir?: \"ltr\" | \"rtl\"\n  \"aria-label\"?: string\n  className?: string\n  triggerClassName?: string\n  contentClassName?: string\n}\n\nfunction DvIslandPicker({\n  islands,\n  atollId,\n  value,\n  onValueChange,\n  placeholder = \"ރަށެއް ހޮވާ\",\n  searchPlaceholder = \"ރަށެއް ހޯދާ...\",\n  emptyMessage = \"ރަށެއް ނުފެނުނު\",\n  \"aria-label\": ariaLabel,\n  ...props\n}: DvIslandPickerProps) {\n  const options = islands\n    .filter((island) => !atollId || island.atollId === atollId)\n    .map((island) => ({\n      value: island.id,\n      label: `${island.nameDv} — ${island.nameEn}`,\n      keywords: [island.nameDv, island.nameEn, island.id],\n      dir: \"auto\" as const,\n    }))\n\n  return (\n    <DvCombobox\n      {...props}\n      options={options}\n      value={value ?? \"\"}\n      onValueChange={onValueChange}\n      placeholder={placeholder}\n      searchPlaceholder={searchPlaceholder}\n      emptyMessage={emptyMessage}\n      aria-label={ariaLabel ?? placeholder}\n    />\n  )\n}\n\nexport { DvIslandPicker, type DvIslandPickerProps }\n",
+      "type": "registry:component",
+      "target": "@components/dv-island-picker.tsx"
+    },
+    {
+      "path": "registry/lib/location-types.ts",
+      "content": "type DvAtoll = {\n  id: string\n  code?: string\n  nameDv: string\n  nameEn: string\n}\n\ntype DvIsland = {\n  id: string\n  atollId: string\n  nameDv: string\n  nameEn: string\n  latitude?: number\n  longitude?: number\n}\n\ntype DvCoordinates = {\n  latitude: number\n  longitude: number\n}\n\ntype DvLocationValue = {\n  atollId?: string\n  islandId?: string\n  latitude?: number\n  longitude?: number\n}\n\nexport type { DvAtoll, DvCoordinates, DvIsland, DvLocationValue }\n",
+      "type": "registry:lib",
+      "target": "@lib/location-types.ts"
+    }
+  ],
+  "type": "registry:component"
+}

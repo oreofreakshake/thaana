@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react"
 import { Navigate, Route, Routes } from "react-router-dom"
 
 import { DocsLayout } from "@/src/components/docs-layout"
@@ -35,6 +36,22 @@ import {
 import { HomePage } from "@/src/pages/home"
 import { NotFoundPage } from "@/src/pages/not-found"
 
+const AtollPickerPage = lazy(() =>
+  import("@/src/pages/docs/location-pages").then((module) => ({
+    default: module.AtollPickerPage,
+  }))
+)
+const IslandPickerPage = lazy(() =>
+  import("@/src/pages/docs/location-pages").then((module) => ({
+    default: module.IslandPickerPage,
+  }))
+)
+const LocationPickerPage = lazy(() =>
+  import("@/src/pages/docs/location-pages").then((module) => ({
+    default: module.LocationPickerPage,
+  }))
+)
+
 export function App() {
   return (
     <Routes>
@@ -59,6 +76,30 @@ export function App() {
           <Route path="components/search" element={<SearchPage />} />
           <Route path="components/combobox" element={<ComboboxPage />} />
           <Route path="components/date-picker" element={<DatePickerPage />} />
+          <Route
+            path="components/atoll-picker"
+            element={
+              <Suspense fallback={null}>
+                <AtollPickerPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="components/island-picker"
+            element={
+              <Suspense fallback={null}>
+                <IslandPickerPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="components/location-picker"
+            element={
+              <Suspense fallback={null}>
+                <LocationPickerPage />
+              </Suspense>
+            }
+          />
           <Route path="components/form-field" element={<FormFieldPage />} />
           <Route path="components/currency-input" element={<CurrencyInputPage />} />
           <Route path="components/phone-input" element={<PhoneInputPage />} />

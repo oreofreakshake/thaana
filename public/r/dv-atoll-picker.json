@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "dv-atoll-picker",
+  "title": "Dhivehi Atoll Picker",
+  "description": "A controlled searchable picker for consumer-supplied Dhivehi and English atoll data.",
+  "registryDependencies": [
+    "https://thaana.yazak.me/r/dv-combobox.json"
+  ],
+  "files": [
+    {
+      "path": "registry/components/dv-atoll-picker.tsx",
+      "content": "\"use client\"\n\nimport type { DvAtoll } from \"../lib/location-types\"\nimport { DvCombobox } from \"./dv-combobox\"\n\ntype DvAtollPickerProps = {\n  atolls: readonly DvAtoll[]\n  value?: string\n  onValueChange: (value: string) => void\n  placeholder?: string\n  searchPlaceholder?: string\n  emptyMessage?: string\n  disabled?: boolean\n  lang?: string\n  dir?: \"ltr\" | \"rtl\"\n  \"aria-label\"?: string\n  className?: string\n  triggerClassName?: string\n  contentClassName?: string\n}\n\nfunction DvAtollPicker({\n  atolls,\n  value,\n  onValueChange,\n  placeholder = \"އަތޮޅެއް ހޮވާ\",\n  searchPlaceholder = \"އަތޮޅެއް ހޯދާ...\",\n  emptyMessage = \"އަތޮޅެއް ނުފެނުނު\",\n  \"aria-label\": ariaLabel,\n  ...props\n}: DvAtollPickerProps) {\n  const options = atolls.map((atoll) => ({\n    value: atoll.id,\n    label: `${atoll.nameDv} — ${atoll.nameEn}`,\n    keywords: [atoll.nameDv, atoll.nameEn, atoll.code, atoll.id].filter(\n      (keyword): keyword is string => Boolean(keyword)\n    ),\n    dir: \"auto\" as const,\n  }))\n\n  return (\n    <DvCombobox\n      {...props}\n      options={options}\n      value={value ?? \"\"}\n      onValueChange={onValueChange}\n      placeholder={placeholder}\n      searchPlaceholder={searchPlaceholder}\n      emptyMessage={emptyMessage}\n      aria-label={ariaLabel ?? placeholder}\n    />\n  )\n}\n\nexport { DvAtollPicker, type DvAtollPickerProps }\n",
+      "type": "registry:component",
+      "target": "@components/dv-atoll-picker.tsx"
+    },
+    {
+      "path": "registry/lib/location-types.ts",
+      "content": "type DvAtoll = {\n  id: string\n  code?: string\n  nameDv: string\n  nameEn: string\n}\n\ntype DvIsland = {\n  id: string\n  atollId: string\n  nameDv: string\n  nameEn: string\n  latitude?: number\n  longitude?: number\n}\n\ntype DvCoordinates = {\n  latitude: number\n  longitude: number\n}\n\ntype DvLocationValue = {\n  atollId?: string\n  islandId?: string\n  latitude?: number\n  longitude?: number\n}\n\nexport type { DvAtoll, DvCoordinates, DvIsland, DvLocationValue }\n",
+      "type": "registry:lib",
+      "target": "@lib/location-types.ts"
+    }
+  ],
+  "type": "registry:component"
+}

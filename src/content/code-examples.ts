@@ -22,6 +22,18 @@ export const installComboboxCommands = shadcnCommands("add oreofreakshake/thaana
 
 export const installDatePickerCommands = shadcnCommands("add oreofreakshake/thaana/dv-date-picker")
 
+export const installAtollPickerCommands = shadcnCommands(
+  "add oreofreakshake/thaana/dv-atoll-picker"
+)
+
+export const installIslandPickerCommands = shadcnCommands(
+  "add oreofreakshake/thaana/dv-island-picker"
+)
+
+export const installLocationPickerCommands = shadcnCommands(
+  "add oreofreakshake/thaana/dv-location-picker"
+)
+
 export const installFormFieldCommands = shadcnCommands("add oreofreakshake/thaana/dv-form-field")
 
 export const installCurrencyInputCommands = shadcnCommands(
@@ -131,6 +143,60 @@ export function InvoiceDate() {
   const [date, setDate] = useState<Date>()
 
   return <DvDatePicker value={date} onValueChange={setDate} />
+}`
+
+export const atollPickerUsage = `import { useState } from "react"
+
+import { DvAtollPicker } from "@/components/dv-atoll-picker"
+
+const atolls = [
+  { id: "custom-a", code: "CA", nameDv: "މިސާލު އަތޮޅު", nameEn: "Custom Atoll" },
+]
+
+export function AtollField() {
+  const [atollId, setAtollId] = useState("")
+  return <DvAtollPicker atolls={atolls} value={atollId} onValueChange={setAtollId} />
+}`
+
+export const islandPickerUsage = `import { useState } from "react"
+
+import { DvIslandPicker } from "@/components/dv-island-picker"
+
+const islands = [
+  { id: "custom-island", atollId: "custom-a", nameDv: "މިސާލު ރަށް", nameEn: "Custom Island" },
+]
+
+export function IslandField() {
+  const [islandId, setIslandId] = useState("")
+  return (
+    <DvIslandPicker
+      islands={islands}
+      atollId="custom-a"
+      value={islandId}
+      onValueChange={setIslandId}
+    />
+  )
+}`
+
+export const locationPickerUsage = `import { useState } from "react"
+
+import { DvLocationPicker } from "@/components/dv-location-picker"
+import type { DvAtoll, DvIsland, DvLocationValue } from "@/lib/location-types"
+
+const atolls: DvAtoll[] = [/* your data */]
+const islands: DvIsland[] = [/* your data */]
+
+export function DeliveryLocation() {
+  const [value, setValue] = useState<DvLocationValue>({})
+
+  return (
+    <DvLocationPicker
+      atolls={atolls}
+      islands={islands}
+      value={value}
+      onValueChange={setValue}
+    />
+  )
 }`
 
 export const formFieldUsage = `import { DvFormField } from "@/components/dv-form-field"

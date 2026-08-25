@@ -96,6 +96,69 @@
       ]
     },
     {
+      "name": "dv-atoll-picker",
+      "type": "registry:component",
+      "title": "Dhivehi Atoll Picker",
+      "description": "A controlled searchable picker for consumer-supplied Dhivehi and English atoll data.",
+      "registryDependencies": ["https://thaana.yazak.me/r/dv-combobox.json"],
+      "files": [
+        {
+          "path": "registry/components/dv-atoll-picker.tsx",
+          "type": "registry:component",
+          "target": "@components/dv-atoll-picker.tsx"
+        },
+        {
+          "path": "registry/lib/location-types.ts",
+          "type": "registry:lib",
+          "target": "@lib/location-types.ts"
+        }
+      ]
+    },
+    {
+      "name": "dv-island-picker",
+      "type": "registry:component",
+      "title": "Dhivehi Island Picker",
+      "description": "A controlled mixed-language island picker with optional atoll filtering.",
+      "registryDependencies": ["https://thaana.yazak.me/r/dv-combobox.json"],
+      "files": [
+        {
+          "path": "registry/components/dv-island-picker.tsx",
+          "type": "registry:component",
+          "target": "@components/dv-island-picker.tsx"
+        },
+        {
+          "path": "registry/lib/location-types.ts",
+          "type": "registry:lib",
+          "target": "@lib/location-types.ts"
+        }
+      ]
+    },
+    {
+      "name": "dv-location-picker",
+      "type": "registry:component",
+      "title": "Dhivehi Location Picker",
+      "description": "A data-driven atoll, island, coordinate, and map picker composed with mapcn and MapLibre.",
+      "registryDependencies": [
+        "@mapcn/map",
+        "https://thaana.yazak.me/r/dv-atoll-picker.json",
+        "https://thaana.yazak.me/r/dv-island-picker.json",
+        "https://thaana.yazak.me/r/dv-input.json",
+        "https://thaana.yazak.me/r/dv-form-field.json"
+      ],
+      "files": [
+        {
+          "path": "registry/components/dv-location-picker.tsx",
+          "type": "registry:component",
+          "target": "@components/dv-location-picker.tsx"
+        },
+        {
+          "path": "registry/lib/location-types.ts",
+          "type": "registry:lib",
+          "target": "@lib/location-types.ts"
+        }
+      ]
+    },
+    {
       "name": "dv-form-field",
       "type": "registry:component",
       "title": "Dhivehi Form Field",

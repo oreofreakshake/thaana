@@ -1,17 +1,55 @@
-import { cleanup, fireEvent, render, screen } from "@testing-library/react"
+import { act, cleanup, fireEvent, render, screen } from "@testing-library/react"
 import * as React from "react"
 import { afterEach, describe, expect, it, vi } from "vitest"
 
 import { Dialog, DialogTitle } from "@/components/ui/dialog"
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
+import { DvAtollPicker } from "@/registry/components/dv-atoll-picker"
 import { DvCombobox } from "@/registry/components/dv-combobox"
 import { DvDatePicker, formatGregorianDate } from "@/registry/components/dv-date-picker"
 import { DvDialogContent } from "@/registry/components/dv-dialog-content"
 import { DvDropdownMenu, DvDropdownMenuContent } from "@/registry/components/dv-dropdown-menu"
 import { DvFormField } from "@/registry/components/dv-form-field"
 import { formatHijriDate } from "@/registry/components/dv-hijri-calendar"
+import { DvIslandPicker } from "@/registry/components/dv-island-picker"
+import {
+  DvLocationPicker,
+  updateLocationAtoll,
+  updateLocationCoordinates,
+  updateLocationIsland,
+} from "@/registry/components/dv-location-picker"
 import { DvPagination } from "@/registry/components/dv-pagination"
 import { DvPhoneInput } from "@/registry/components/dv-phone-input"
+
+const mapTestState = vi.hoisted(() => ({
+  handlers: {} as Record<
+    string,
+    ((event: { lngLat: { lat: number; lng: number } }) => void) | undefined
+  >,
+}))
+
+vi.mock("@/components/ui/map", async () => {
+  const ReactModule = await import("react")
+  const map = {
+    on: (event: string, handler: (event: { lngLat: { lat: number; lng: number } }) => void) => {
+      mapTestState.handlers[event] = handler
+    },
+    off: (event: string) => {
+      delete mapTestState.handlers[event]
+    },
+    flyTo: vi.fn(),
+  }
+  return {
+    Map: ({ children }: { children: React.ReactNode }) =>
+      ReactModule.createElement("div", { "data-testid": "map" }, children),
+    MapControls: () => null,
+    MapMarker: ({ children }: { children: React.ReactNode }) =>
+      ReactModule.createElement(ReactModule.Fragment, null, children),
+    MarkerContent: ({ children }: { children: React.ReactNode }) =>
+      ReactModule.createElement(ReactModule.Fragment, null, children),
+    useMap: () => ({ map, isLoaded: true, resolvedTheme: "light" }),
+  }
+})
 
 class ResizeObserverMock {
   observe() {}
@@ -23,6 +61,135 @@ vi.stubGlobal("ResizeObserver", ResizeObserverMock)
 Element.prototype.scrollIntoView = vi.fn()
 
 afterEach(cleanup)
+
+const locationAtolls = [
+  { id: "north", code: "N", nameDv: "އުތުރު އަތޮޅު", nameEn: "North Atoll" },
+  { id: "south", code: "S", nameDv: "ދެކުނު އަތޮޅު", nameEn: "South Atoll" },
+]
+
+const locationIslands = [
+  {
+    id: "harbor",
+    atollId: "north",
+    nameDv: "ބަނދަރު",
+    nameEn: "Harbor",
+    latitude: 4.1,
+    longitude: 73.5,
+  },
+  { id: "jetty", atollId: "south", nameDv: "ޖެޓީ", nameEn: "Jetty" },
+]
+
+describe("DvAtollPicker", () => {
+  it("renders mixed-language labels and updates a controlled value", () => {
+    function ControlledPicker() {
+      const [value, setValue] = React.useState("north")
+      return <DvAtollPicker atolls={locationAtolls} value={value} onValueChange={setValue} />
+    }
+
+    render(<ControlledPicker />)
+    expect(screen.getByRole("combobox").textContent).toContain("އުތުރު އަތޮޅު — North Atoll")
+    fireEvent.click(screen.getByRole("combobox"))
+    fireEvent.click(screen.getByText("ދެކުނު އަތޮޅު — South Atoll"))
+    expect(screen.getByRole("combobox").textContent).toContain("South Atoll")
+  })
+})
+
+describe("DvIslandPicker", () => {
+  it("filters by atoll and supports mixed-direction search in controlled usage", () => {
+    const onValueChange = vi.fn()
+    render(
+      <DvIslandPicker
+        islands={locationIslands}
+        atollId="north"
+        value=""
+        onValueChange={onValueChange}
+      />
+    )
+
+    fireEvent.click(screen.getByRole("combobox"))
+    const search = screen.getByLabelText("ރަށެއް ހޯދާ...")
+    fireEvent.change(search, { target: { value: "Harbor" } })
+    expect(search.getAttribute("dir")).toBe("ltr")
+    expect(screen.getByText("ބަނދަރު — Harbor")).toBeTruthy()
+    expect(screen.queryByText("ޖެޓީ — Jetty")).toBeNull()
+    fireEvent.click(screen.getByText("ބަނދަރު — Harbor"))
+    expect(onValueChange).toHaveBeenCalledWith("harbor")
+  })
+})
+
+describe("DvLocationPicker", () => {
+  it("implements atoll, island, and coordinate update semantics", () => {
+    const initial = { islandId: "harbor", latitude: 1, longitude: 2 }
+    expect(updateLocationAtoll(initial, "south", locationIslands)).toEqual({
+      atollId: "south",
+      islandId: undefined,
+      latitude: 1,
+      longitude: 2,
+    })
+    expect(updateLocationIsland(initial, "harbor", locationIslands)).toEqual({
+      atollId: "north",
+      islandId: "harbor",
+      latitude: 4.1,
+      longitude: 73.5,
+    })
+    expect(updateLocationIsland(initial, "jetty", locationIslands)).toEqual({
+      atollId: "south",
+      islandId: "jetty",
+      latitude: 1,
+      longitude: 2,
+    })
+    expect(updateLocationCoordinates(initial, { latitude: 3, longitude: 4 })).toEqual({
+      islandId: "harbor",
+      latitude: 3,
+      longitude: 4,
+    })
+  })
+
+  it("selecting an island emits its valid coordinates", () => {
+    const onValueChange = vi.fn()
+    render(
+      <DvLocationPicker
+        islands={locationIslands}
+        value={{}}
+        onValueChange={onValueChange}
+        showMap={false}
+      />
+    )
+
+    fireEvent.click(screen.getByLabelText("ރަށް"))
+    fireEvent.click(screen.getByText("ބަނދަރު — Harbor"))
+    expect(onValueChange).toHaveBeenCalledWith({
+      atollId: "north",
+      islandId: "harbor",
+      latitude: 4.1,
+      longitude: 73.5,
+    })
+  })
+
+  it("map selection updates coordinates and coordinate fields remain LTR", () => {
+    const onValueChange = vi.fn()
+    render(<DvLocationPicker value={{ islandId: "manual" }} onValueChange={onValueChange} />)
+
+    expect(screen.getByLabelText("ލެޓިޓިއުޑް").getAttribute("dir")).toBe("ltr")
+    expect(screen.getByLabelText("ލޮންޖިޓިއުޑް").getAttribute("dir")).toBe("ltr")
+    act(() => mapTestState.handlers.click?.({ lngLat: { lat: 4.2, lng: 73.6 } }))
+    expect(onValueChange).toHaveBeenCalledWith({
+      islandId: "manual",
+      latitude: 4.2,
+      longitude: 73.6,
+    })
+  })
+
+  it("allows direct coordinate editing without a map", () => {
+    const onValueChange = vi.fn()
+    render(
+      <DvLocationPicker value={{ longitude: 73.5 }} onValueChange={onValueChange} showMap={false} />
+    )
+
+    fireEvent.change(screen.getByLabelText("ލެޓިޓިއުޑް"), { target: { value: "4.1755" } })
+    expect(onValueChange).toHaveBeenCalledWith({ latitude: 4.1755, longitude: 73.5 })
+  })
+})
 
 describe("DvCombobox", () => {
   const options = [

@@ -18,6 +18,8 @@
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "registries": {},
+  "registries": {
+    "@mapcn": "https://mapcn.dev/r/{name}.json"
+  },
   "rtl": true
 }
