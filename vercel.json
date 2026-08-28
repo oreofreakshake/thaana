@@ -24,6 +24,23 @@
       ]
     },
     {
+      "source": "/fonts/css/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
+    },
+    {
       "source": "/(favicon.svg|og.png)",
       "headers": [
         {
@@ -34,10 +51,6 @@
     }
   ],
   "rewrites": [
-    {
-      "source": "/fonts/css/:slug",
-      "destination": "/api/fonts-css?slug=:slug"
-    },
     {
       "source": "/(.*)",
       "destination": "/index.html"

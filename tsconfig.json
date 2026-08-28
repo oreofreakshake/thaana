@@ -18,7 +18,6 @@
     }
   },
   "include": [
-    "api/**/*.ts",
     "components/**/*.tsx",
     "lib/**/*.ts",
     "registry/**/*.ts",

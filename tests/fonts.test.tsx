@@ -2,7 +2,6 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react"
 import { MemoryRouter, Route, Routes } from "react-router-dom"
 import { afterEach, describe, expect, it } from "vitest"
 
-import fontCssHandler from "@/api/fonts-css"
 import {
   buildFontCss,
   DEFAULT_PUBLIC_FONT_CDN_URL,
@@ -70,38 +69,6 @@ describe("Thaana font CSS", () => {
     }
     expect(() => buildFontCss(privateFont)).toThrow("not publicly distributable")
   })
-
-  it("returns a CSS 200 for known fonts and a 404 for unknown fonts", () => {
-    function invoke(slug: string) {
-      const headers = new Map<string, string>()
-      let statusCode = 0
-      let body = ""
-      const response = {
-        status(value: number) {
-          statusCode = value
-          return response
-        },
-        setHeader(name: string, value: string) {
-          headers.set(name, value)
-        },
-        send(value: string) {
-          body = value
-        },
-      }
-      fontCssHandler({ query: { slug } }, response)
-      return { body, headers, statusCode }
-    }
-
-    const known = invoke("mv-kelaa")
-    expect(known.statusCode).toBe(200)
-    expect(known.headers.get("Content-Type")).toBe("text/css; charset=utf-8")
-    expect(known.headers.get("Cache-Control")).toContain("s-maxage=86400")
-    expect(known.body).toContain("@font-face")
-
-    const unknown = invoke("missing")
-    expect(unknown.statusCode).toBe(404)
-    expect(unknown.body).toContain("not found")
-  })
 })
 
 describe("font registry validation", () => {
@@ -146,6 +113,6 @@ describe("font detail page", () => {
     fireEvent.change(preview, { target: { value: "ތާނަ" } })
     expect(preview.value).toBe("ތާނަ")
     expect(container.textContent).toContain("@import url")
-    expect(document.head.querySelector('link[href="/fonts/css/mv-kelaa"]')).toBeTruthy()
+    expect(document.head.querySelector('link[href="/fonts/css/mv-kelaa.css"]')).toBeTruthy()
   })
 })

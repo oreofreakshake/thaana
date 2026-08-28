@@ -82,7 +82,7 @@ export function buildFontCss(font: ThaanaFont, cdnBaseUrl?: string): string {
   const fallback = escapeCssString(font.fallback)
   const faces = font.styles.map((style) => {
     const unicodeRange = style.unicodeRange ? `\n  unicode-range:\n    ${style.unicodeRange};` : ""
-    return `@font-face {\n  font-family: "${family}";\n  font-style: ${style.style};\n  font-weight: ${weightValue(style.weight)};\n  font-display: swap;\n  src: url("${escapeCssString(resolveAssetUrl(style.url, cdnBaseUrl))}")\n    format("woff2");${unicodeRange}\n}`
+    return `@font-face {\n  font-family: "${family}";\n  font-style: ${style.style};\n  font-weight: ${weightValue(style.weight)};\n  font-display: swap;\n  src: url("${escapeCssString(resolveAssetUrl(style.url, cdnBaseUrl))}") format("woff2");${unicodeRange}\n}`
   })
 
   const variable = variableName(font.slug)

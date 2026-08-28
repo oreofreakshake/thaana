@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("https://thaana.yazak.me/fonts/assets/mv-a-waheed/a-waheed-bold.woff2") format("woff2");
+  src: url("/fonts/assets/mv-a-waheed/a-waheed-bold.woff2") format("woff2");
 }
 
 :root {

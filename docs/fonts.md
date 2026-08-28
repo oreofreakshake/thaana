@@ -1,7 +1,7 @@
 # Maintaining Thaana Fonts
 
 `lib/fonts/registry.ts` is the only source of font metadata. Public entries automatically appear
-in the catalogue, CSS endpoint, and generated `@thaana/fonts` stylesheets.
+in the catalogue, static site CSS, and generated `@thaana/fonts` stylesheets.
 
 ## Add a font
 
@@ -13,14 +13,16 @@ in the catalogue, CSS endpoint, and generated `@thaana/fonts` stylesheets.
 5. Add each weight/style and its CDN-relative asset path. Add `unicodeRange` only when it comes
    from verified glyph metadata.
 6. Run `pnpm fonts:build` and `pnpm validate`.
-7. Commit the generated `packages/fonts/dist` stylesheets. The font then appears in the catalogue.
+7. Commit the generated `packages/fonts/dist` and `public/fonts/css` stylesheets. The font then
+   appears in the catalogue.
 
 ## CDN configuration
 
 Set `THAANA_FONT_CDN_URL` to override the asset origin during package generation. Published package
-CSS defaults to `https://thaana.yazak.me/fonts/assets`; the application CSS endpoint falls back to
-same-origin `/fonts/assets` in local development. Absolute HTTPS style URLs are also supported for
-exceptional cases, but Thaana-owned CDN paths are preferred.
+CSS defaults to `https://thaana.yazak.me/fonts/assets`. Static site stylesheets use same-origin
+`/fonts/assets`, which also resolves against `thaana.yazak.me` when loaded from another website.
+Absolute HTTPS style URLs are also supported for exceptional cases, but Thaana-owned CDN paths are
+preferred.
 
 Public WOFF2 responses should include:
 

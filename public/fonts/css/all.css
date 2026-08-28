@@ -4,7 +4,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("https://thaana.yazak.me/fonts/assets/mv-kelaa/kelaa-regular.woff2") format("woff2");
+  src: url("/fonts/assets/mv-kelaa/kelaa-regular.woff2") format("woff2");
 }
 
 @font-face {
@@ -12,7 +12,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("https://thaana.yazak.me/fonts/assets/mv-kelaa/kelaa-bold.woff2") format("woff2");
+  src: url("/fonts/assets/mv-kelaa/kelaa-bold.woff2") format("woff2");
 }
 
 :root {
@@ -29,7 +29,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("https://thaana.yazak.me/fonts/assets/mv-faseyha/faseyha-regular.woff2") format("woff2");
+  src: url("/fonts/assets/mv-faseyha/faseyha-regular.woff2") format("woff2");
 }
 
 @font-face {
@@ -37,7 +37,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("https://thaana.yazak.me/fonts/assets/mv-faseyha/faseyha-bold.woff2") format("woff2");
+  src: url("/fonts/assets/mv-faseyha/faseyha-bold.woff2") format("woff2");
 }
 
 :root {
@@ -54,7 +54,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("https://thaana.yazak.me/fonts/assets/mv-typewriter/typewriter-regular.woff2") format("woff2");
+  src: url("/fonts/assets/mv-typewriter/typewriter-regular.woff2") format("woff2");
 }
 
 @font-face {
@@ -62,7 +62,7 @@
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url("https://thaana.yazak.me/fonts/assets/mv-typewriter/typewriter-semibold.woff2") format("woff2");
+  src: url("/fonts/assets/mv-typewriter/typewriter-semibold.woff2") format("woff2");
 }
 
 @font-face {
@@ -70,7 +70,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("https://thaana.yazak.me/fonts/assets/mv-typewriter/typewriter-bold.woff2") format("woff2");
+  src: url("/fonts/assets/mv-typewriter/typewriter-bold.woff2") format("woff2");
 }
 
 :root {
@@ -87,7 +87,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("https://thaana.yazak.me/fonts/assets/mv-ilham/ilham-regular.woff2") format("woff2");
+  src: url("/fonts/assets/mv-ilham/ilham-regular.woff2") format("woff2");
 }
 
 @font-face {
@@ -95,7 +95,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("https://thaana.yazak.me/fonts/assets/mv-ilham/ilham-bold.woff2") format("woff2");
+  src: url("/fonts/assets/mv-ilham/ilham-bold.woff2") format("woff2");
 }
 
 :root {
@@ -112,7 +112,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("https://thaana.yazak.me/fonts/assets/mv-utheemu/utheemu-regular.woff2") format("woff2");
+  src: url("/fonts/assets/mv-utheemu/utheemu-regular.woff2") format("woff2");
 }
 
 @font-face {
@@ -120,7 +120,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("https://thaana.yazak.me/fonts/assets/mv-utheemu/utheemu-bold.woff2") format("woff2");
+  src: url("/fonts/assets/mv-utheemu/utheemu-bold.woff2") format("woff2");
 }
 
 :root {
@@ -137,7 +137,7 @@
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("https://thaana.yazak.me/fonts/assets/mv-a-waheed/a-waheed-bold.woff2") format("woff2");
+  src: url("/fonts/assets/mv-a-waheed/a-waheed-bold.woff2") format("woff2");
 }
 
 :root {

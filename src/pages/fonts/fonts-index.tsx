@@ -11,7 +11,7 @@ export function FontsIndexPage() {
     const links = getPublicFonts().map((font) => {
       const link = document.createElement("link")
       link.rel = "stylesheet"
-      link.href = `/fonts/css/${font.slug}`
+      link.href = `/fonts/css/${font.slug}.css`
       link.dataset.thaanaFont = font.slug
       document.head.append(link)
       return link

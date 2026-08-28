@@ -29,7 +29,7 @@ export function FontDetailPage() {
     if (font?.distribution !== "public") return
     const link = document.createElement("link")
     link.rel = "stylesheet"
-    link.href = `/fonts/css/${font.slug}`
+    link.href = `/fonts/css/${font.slug}.css`
     link.dataset.thaanaFont = font.slug
     document.head.append(link)
     return () => link.remove()
@@ -41,7 +41,7 @@ export function FontDetailPage() {
 
   if (!font) return <NotFoundPage />
 
-  const cssUrl = `${cssOrigin}/${font.slug}`
+  const cssUrl = `${cssOrigin}/${font.slug}.css`
   const cssImport = `@import url("${cssUrl}");`
   const cssUsage = `.my-text {\n  font-family: var(--thaana-font-${font.slug});\n}`
   const htmlUsage = `<link\n  rel="stylesheet"\n  href="${cssUrl}"\n/>`
