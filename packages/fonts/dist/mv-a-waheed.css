@@ -1,0 +1,16 @@
+@font-face {
+  font-family: "MV A Waheed";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-a-waheed/a-waheed-bold.woff2")
+    format("woff2");
+}
+
+:root {
+  --thaana-font-mv-a-waheed: "MV A Waheed", sans-serif;
+}
+
+.font-mv-a-waheed {
+  font-family: var(--thaana-font-mv-a-waheed);
+}

@@ -1257,7 +1257,7 @@ const MALDIVES_ATOLLS: readonly MaldivesAtoll[] = [
   },
   {
     code: "S",
-    nameEn: "Addu City",
+    nameEn: "Seenu",
     islands: [
       {
         nameEn: "Feydhoo",

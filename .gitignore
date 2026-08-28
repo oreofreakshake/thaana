@@ -8,6 +8,8 @@ node_modules/
 
 # Production build output
 dist/
+!packages/fonts/dist/
+!packages/fonts/dist/*.css
 
 # Test output
 coverage/

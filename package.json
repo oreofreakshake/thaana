@@ -23,15 +23,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "pnpm registry:build && vite build",
+    "build": "pnpm registry:build && pnpm fonts:build && vite build",
     "build:docs": "vite build",
     "check": "biome check .",
     "check:write": "biome check --write .",
     "format": "biome format --write .",
+    "fonts:build": "node --experimental-strip-types scripts/build-fonts.ts",
     "lint": "biome lint .",
     "registry:build": "shadcn build",
     "registry:validate": "shadcn registry validate ./registry.json",
-    "test": "node --test tests/text-direction.test.mjs && vitest run tests/components.test.tsx --environment jsdom",
+    "test": "node --test tests/text-direction.test.mjs && vitest run tests/components.test.tsx tests/fonts.test.tsx --environment jsdom",
     "typecheck": "tsc --noEmit",
     "validate": "pnpm check && pnpm typecheck && pnpm test && pnpm registry:validate && pnpm build"
   },

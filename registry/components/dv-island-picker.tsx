@@ -48,6 +48,16 @@ function atollLabel(atoll: MaldivesAtoll, dir: "ltr" | "rtl" = "rtl") {
   return `${atoll.code} · ${atoll.nameEn}`
 }
 
+function atollIslandLabel(
+  atoll: MaldivesAtoll,
+  island: MaldivesIsland,
+  dir: "ltr" | "rtl" = "rtl"
+) {
+  const atollName =
+    dir === "rtl" ? (atoll.nameDv ?? atoll.abbreviationDv ?? atoll.code) : atoll.nameEn
+  return `${atollName} · ${islandLabel(island, dir)}`
+}
+
 function matchesValue(
   value: DvIslandValue | undefined,
   atoll: MaldivesAtoll,
@@ -115,11 +125,7 @@ function DvIslandPicker({
           >
             {selected ? (
               <bdi dir="auto" className="min-w-0 truncate text-start">
-                {`${islandLabel(selected.island, dir)} · ${
-                  dir === "rtl"
-                    ? (selected.atoll.abbreviationDv ?? selected.atoll.code)
-                    : selected.atoll.code
-                }`}
+                {atollIslandLabel(selected.atoll, selected.island, dir)}
               </bdi>
             ) : (
               <span className="truncate text-muted-foreground">{placeholder}</span>
@@ -177,7 +183,7 @@ function DvIslandPicker({
                           className={cn("shrink-0", selectedIsland ? "opacity-100" : "opacity-0")}
                         />
                         <bdi dir="auto" className="min-w-0 flex-1 truncate text-start">
-                          {islandLabel(island, dir)}
+                          {atollIslandLabel(atoll, island, dir)}
                         </bdi>
                       </CommandItem>
                     )
@@ -193,6 +199,7 @@ function DvIslandPicker({
 }
 
 export {
+  atollIslandLabel,
   atollLabel,
   DvIslandPicker,
   type DvIslandPickerProps,

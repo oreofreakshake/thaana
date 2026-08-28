@@ -1,0 +1,19 @@
+{
+  "name": "@thaana/fonts",
+  "version": "0.1.0",
+  "description": "Tiny CSS entry points for remotely hosted Dhivehi web fonts.",
+  "license": "MIT",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./all": "./dist/all.css",
+    "./*": "./dist/*.css"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

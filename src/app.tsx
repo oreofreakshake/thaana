@@ -33,6 +33,8 @@ import {
   DropdownMenuPage,
   PaginationPage,
 } from "@/src/pages/docs/workflow-component-pages"
+import { FontDetailPage } from "@/src/pages/fonts/font-detail"
+import { FontsIndexPage } from "@/src/pages/fonts/fonts-index"
 import { HomePage } from "@/src/pages/home"
 import { NotFoundPage } from "@/src/pages/not-found"
 
@@ -52,6 +54,8 @@ export function App() {
     <Routes>
       <Route element={<SiteShell />}>
         <Route index element={<HomePage />} />
+        <Route path="fonts" element={<FontsIndexPage />} />
+        <Route path="fonts/:slug" element={<FontDetailPage />} />
         <Route path="docs" element={<Navigate to="/docs/introduction" replace />} />
         <Route path="docs" element={<DocsLayout />}>
           <Route path="introduction" element={<IntroductionPage />} />

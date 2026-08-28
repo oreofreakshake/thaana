@@ -7,7 +7,7 @@
     "defaultBranch": "main"
   },
   "files": {
-    "includes": ["**", "!public/r", "!src/components/ui/map.tsx"],
+    "includes": ["**", "!public/r", "!packages/fonts/dist", "!src/components/ui/map.tsx"],
     "ignoreUnknown": true
   },
   "formatter": {

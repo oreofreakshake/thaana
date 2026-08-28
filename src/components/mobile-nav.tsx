@@ -11,6 +11,7 @@ const mainLinks = [
   { title: "Docs", href: "/docs/installation" },
   { title: "Components", href: "/docs/components/input" },
   { title: "Blocks", href: "/docs/blocks/customer-management" },
+  { title: "Fonts", href: "/fonts" },
 ]
 
 type MobileNavProps = {

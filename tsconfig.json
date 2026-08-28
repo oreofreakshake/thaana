@@ -8,6 +8,7 @@
     "strict": true,
     "noEmit": true,
     "isolatedModules": true,
+    "allowImportingTsExtensions": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -17,6 +18,7 @@
     }
   },
   "include": [
+    "api/**/*.ts",
     "components/**/*.tsx",
     "lib/**/*.ts",
     "registry/**/*.ts",

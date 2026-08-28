@@ -1,0 +1,25 @@
+@font-face {
+  font-family: "MV Ilham";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-ilham/ilham-regular.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "MV Ilham";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-ilham/ilham-bold.woff2")
+    format("woff2");
+}
+
+:root {
+  --thaana-font-mv-ilham: "MV Ilham", sans-serif;
+}
+
+.font-mv-ilham {
+  font-family: var(--thaana-font-mv-ilham);
+}

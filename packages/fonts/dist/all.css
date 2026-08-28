@@ -1,0 +1,161 @@
+/* MV Kelaa */
+@font-face {
+  font-family: "MV Kelaa";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-kelaa/kelaa-regular.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "MV Kelaa";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-kelaa/kelaa-bold.woff2")
+    format("woff2");
+}
+
+:root {
+  --thaana-font-mv-kelaa: "MV Kelaa", sans-serif;
+}
+
+.font-mv-kelaa {
+  font-family: var(--thaana-font-mv-kelaa);
+}
+
+/* MV Faseyha */
+@font-face {
+  font-family: "MV Faseyha";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-faseyha/faseyha-regular.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "MV Faseyha";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-faseyha/faseyha-bold.woff2")
+    format("woff2");
+}
+
+:root {
+  --thaana-font-mv-faseyha: "MV Faseyha", sans-serif;
+}
+
+.font-mv-faseyha {
+  font-family: var(--thaana-font-mv-faseyha);
+}
+
+/* MV Typewriter */
+@font-face {
+  font-family: "MV Typewriter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-typewriter/typewriter-regular.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "MV Typewriter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-typewriter/typewriter-semibold.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "MV Typewriter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-typewriter/typewriter-bold.woff2")
+    format("woff2");
+}
+
+:root {
+  --thaana-font-mv-typewriter: "MV Typewriter", monospace;
+}
+
+.font-mv-typewriter {
+  font-family: var(--thaana-font-mv-typewriter);
+}
+
+/* MV Ilham */
+@font-face {
+  font-family: "MV Ilham";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-ilham/ilham-regular.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "MV Ilham";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-ilham/ilham-bold.woff2")
+    format("woff2");
+}
+
+:root {
+  --thaana-font-mv-ilham: "MV Ilham", sans-serif;
+}
+
+.font-mv-ilham {
+  font-family: var(--thaana-font-mv-ilham);
+}
+
+/* MV Utheemu */
+@font-face {
+  font-family: "MV Utheemu";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-utheemu/utheemu-regular.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "MV Utheemu";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-utheemu/utheemu-bold.woff2")
+    format("woff2");
+}
+
+:root {
+  --thaana-font-mv-utheemu: "MV Utheemu", sans-serif;
+}
+
+.font-mv-utheemu {
+  font-family: var(--thaana-font-mv-utheemu);
+}
+
+/* MV A Waheed */
+@font-face {
+  font-family: "MV A Waheed";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-a-waheed/a-waheed-bold.woff2")
+    format("woff2");
+}
+
+:root {
+  --thaana-font-mv-a-waheed: "MV A Waheed", sans-serif;
+}
+
+.font-mv-a-waheed {
+  font-family: var(--thaana-font-mv-a-waheed);
+}

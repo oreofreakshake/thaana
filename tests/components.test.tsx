@@ -102,7 +102,7 @@ describe("DvIslandPicker", () => {
     const search = screen.getByLabelText("ރަށެއް ނުވަތަ އަތޮޅެއް ހޯދާ...")
     fireEvent.change(search, { target: { value: "Baarah" } })
     expect(search.getAttribute("dir")).toBe("ltr")
-    fireEvent.click(screen.getByText("ބާރަށް"))
+    fireEvent.click(screen.getByText("ހއ · ބާރަށް"))
     expect(onValueChange).toHaveBeenCalledWith({ atollCode: "HA", island: "Baarah" })
   })
 
@@ -111,7 +111,7 @@ describe("DvIslandPicker", () => {
     fireEvent.change(screen.getByLabelText("ރަށެއް ނުވަތަ އަތޮޅެއް ހޯދާ..."), {
       target: { value: query },
     })
-    expect(screen.getByText("ބާރަށް")).toBeTruthy()
+    expect(screen.getByText("ހއ · ބާރަށް")).toBeTruthy()
     expect(screen.getByText("ހއ. އަތޮޅު")).toBeTruthy()
   })
 
@@ -128,14 +128,25 @@ describe("DvIslandPicker", () => {
     fireEvent.change(search, { target: { value: "ބަނދަރު" } })
     expect(search.getAttribute("dir")).toBe("rtl")
     expect(screen.queryByText("Baarah")).toBeNull()
-    fireEvent.click(screen.getByText("ބަނދަރު"))
-    expect(screen.getByRole("combobox").textContent).toContain("ބަނދަރު · އ")
+    fireEvent.click(screen.getByText("އުތުރު އަތޮޅު · ބަނދަރު"))
+    expect(screen.getByRole("combobox").textContent).toContain("އުތުރު އަތޮޅު · ބަނދަރު")
   })
 
   it("renders English labels for an explicit LTR interface", () => {
     render(<DvIslandPicker dir="ltr" defaultOpen onValueChange={() => undefined} />)
     expect(screen.getByText("HA · Haa Alif")).toBeTruthy()
-    expect(screen.getByText("Baarah")).toBeTruthy()
+    expect(screen.getByText("Haa Alif · Baarah")).toBeTruthy()
+  })
+
+  it("renders Seenu before Hithadhoo in Dhivehi and English", () => {
+    const { rerender } = render(<DvIslandPicker defaultOpen onValueChange={() => undefined} />)
+    fireEvent.change(screen.getByLabelText("ރަށެއް ނުވަތަ އަތޮޅެއް ހޯދާ..."), {
+      target: { value: "Hithadhoo Seenu" },
+    })
+    expect(screen.getByText("ސ · ހިތަދޫ")).toBeTruthy()
+
+    rerender(<DvIslandPicker dir="ltr" defaultOpen onValueChange={() => undefined} />)
+    expect(screen.getByText("Seenu · Hithadhoo")).toBeTruthy()
   })
 
   it("is accessible, RTL by default, and supports disabled behavior", () => {
@@ -175,7 +186,7 @@ describe("DvLocationPicker", () => {
     )
 
     fireEvent.click(screen.getByLabelText("ރަށް"))
-    fireEvent.click(screen.getByText("ބަނދަރު"))
+    fireEvent.click(screen.getByText("އުތުރު އަތޮޅު · ބަނދަރު"))
     expect(onValueChange).toHaveBeenCalledWith({
       atollCode: "N",
       island: "Harbor",
@@ -188,7 +199,7 @@ describe("DvLocationPicker", () => {
     render(<DvLocationPicker atolls={customAtolls} value={{}} onValueChange={() => undefined} />)
 
     fireEvent.click(screen.getByLabelText("ރަށް"))
-    fireEvent.click(screen.getByText("ބަނދަރު"))
+    fireEvent.click(screen.getByText("އުތުރު އަތޮޅު · ބަނދަރު"))
     expect(mapTestState.flyTo).toHaveBeenCalledWith({ center: [73.5, 4.1], zoom: 13 })
   })
 

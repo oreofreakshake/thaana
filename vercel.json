@@ -11,11 +11,15 @@
       ]
     },
     {
-      "source": "/fonts/(.*)",
+      "source": "/fonts/assets/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
           "value": "public, max-age=31536000, immutable"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
         }
       ]
     },
@@ -30,6 +34,10 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/fonts/css/:slug",
+      "destination": "/api/fonts-css?slug=:slug"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"

@@ -1,0 +1,34 @@
+@font-face {
+  font-family: "MV Typewriter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-typewriter/typewriter-regular.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "MV Typewriter";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-typewriter/typewriter-semibold.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "MV Typewriter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-typewriter/typewriter-bold.woff2")
+    format("woff2");
+}
+
+:root {
+  --thaana-font-mv-typewriter: "MV Typewriter", monospace;
+}
+
+.font-mv-typewriter {
+  font-family: var(--thaana-font-mv-typewriter);
+}

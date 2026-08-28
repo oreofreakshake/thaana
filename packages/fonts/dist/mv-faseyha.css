@@ -1,0 +1,25 @@
+@font-face {
+  font-family: "MV Faseyha";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-faseyha/faseyha-regular.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "MV Faseyha";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("https://thaana.yazak.me/fonts/assets/mv-faseyha/faseyha-bold.woff2")
+    format("woff2");
+}
+
+:root {
+  --thaana-font-mv-faseyha: "MV Faseyha", sans-serif;
+}
+
+.font-mv-faseyha {
+  font-family: var(--thaana-font-mv-faseyha);
+}
