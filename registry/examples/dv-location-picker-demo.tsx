@@ -101,6 +101,20 @@ function DvLocationPickerDemo() {
   )
 }
 
+function DvLocationPickerCustomDemo() {
+  const [value, setValue] = React.useState<DvLocationValue>({})
+  return (
+    <div className="w-full max-w-lg">
+      <DvLocationPicker
+        atolls={customAtolls}
+        value={value}
+        onValueChange={setValue}
+        showMap={false}
+      />
+    </div>
+  )
+}
+
 function DvLocationPickerWithoutMapDemo() {
   const [value, setValue] = React.useState<DvLocationValue>({})
   return (
@@ -116,6 +130,7 @@ export {
   DvIslandPickerDemo,
   DvIslandPickerDisabledDemo,
   DvIslandPickerLtrDemo,
+  DvLocationPickerCustomDemo,
   DvLocationPickerDemo,
   DvLocationPickerWithoutMapDemo,
 }

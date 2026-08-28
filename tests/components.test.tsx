@@ -26,6 +26,7 @@ const mapTestState = vi.hoisted(() => ({
     ((event: { lngLat: { lat: number; lng: number } }) => void) | undefined
   >,
   dragEnd: undefined as ((coordinates: { lat: number; lng: number }) => void) | undefined,
+  flyTo: vi.fn(),
 }))
 
 vi.mock("@/components/ui/map", async () => {
@@ -37,7 +38,7 @@ vi.mock("@/components/ui/map", async () => {
     off: (event: string) => {
       delete mapTestState.handlers[event]
     },
-    flyTo: vi.fn(),
+    flyTo: mapTestState.flyTo,
   }
   return {
     Map: ({ children }: { children: React.ReactNode }) =>
@@ -72,6 +73,7 @@ afterEach(() => {
   cleanup()
   mapTestState.handlers = {}
   mapTestState.dragEnd = undefined
+  mapTestState.flyTo.mockClear()
 })
 
 const customAtolls: MaldivesAtoll[] = [
@@ -182,6 +184,14 @@ describe("DvLocationPicker", () => {
     })
   })
 
+  it("focuses the map when the selected island has coordinates", () => {
+    render(<DvLocationPicker atolls={customAtolls} value={{}} onValueChange={() => undefined} />)
+
+    fireEvent.click(screen.getByLabelText("ރަށް"))
+    fireEvent.click(screen.getByText("ބަނދަރު"))
+    expect(mapTestState.flyTo).toHaveBeenCalledWith({ center: [73.5, 4.1], zoom: 13 })
+  })
+
   it("a built-in island replaces coordinates with its official map position", () => {
     expect(
       updateLocationIsland(
@@ -225,6 +235,33 @@ describe("DvLocationPicker", () => {
       latitude: 3,
       longitude: 2,
     })
+
+    const longitude = screen.getByLabelText("ލޮންޖިޓިއުޑް")
+    expect(longitude.getAttribute("dir")).toBe("ltr")
+    fireEvent.change(longitude, { target: { value: "-73.5093" } })
+    expect(onValueChange).toHaveBeenCalledWith({
+      ...selected,
+      latitude: 1,
+      longitude: -73.5093,
+    })
+  })
+
+  it("renders a useful RTL coordinate form without data or a map and disables every control", () => {
+    const { container } = render(
+      <DvLocationPicker value={{}} onValueChange={() => undefined} showMap={false} disabled />
+    )
+
+    expect(container.querySelector('[data-slot="dv-location-picker"]')?.getAttribute("dir")).toBe(
+      "rtl"
+    )
+    expect(screen.queryByTestId("map")).toBeNull()
+    expect((screen.getByLabelText("ރަށް") as HTMLButtonElement).disabled).toBe(true)
+    for (const label of ["ލެޓިޓިއުޑް", "ލޮންޖިޓިއުޑް"]) {
+      const input = screen.getByLabelText(label) as HTMLInputElement
+      expect(input.disabled).toBe(true)
+      expect(input.dir).toBe("ltr")
+      expect(input.value).toBe("")
+    }
   })
 
   it("ships the complete supplied atoll grouping", () => {

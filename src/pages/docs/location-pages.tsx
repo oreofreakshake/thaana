@@ -3,6 +3,7 @@ import {
   DvIslandPickerDemo,
   DvIslandPickerDisabledDemo,
   DvIslandPickerLtrDemo,
+  DvLocationPickerCustomDemo,
   DvLocationPickerDemo,
   DvLocationPickerWithoutMapDemo,
 } from "@/registry/examples/dv-location-picker-demo"
@@ -102,7 +103,9 @@ export function IslandPickerPage() {
           No dataset prop is required. The picker ships with 189 inhabited islands grouped by
           structured atoll code and name. Dhivehi labels and coordinates are matched from the
           Maldives Geomatics Department&apos;s OneMap residential island dataset; stable values keep
-          the supplied English island name alongside <code>atollCode</code>.
+          the supplied English island name alongside <code>atollCode</code>. Administrative names
+          can change, so specialized applications can replace the dataset through{" "}
+          <code>atolls</code>.
         </p>
       </div>
 
@@ -166,8 +169,8 @@ export function LocationPickerPage() {
         <p>
           Selecting an island always sets its atoll code and English name. A complete valid
           coordinate pair from the built-in or custom data replaces the current coordinates and
-          focuses the map on that island. If a custom island has no coordinates, manual or
-          map selected coordinates remain unchanged. Map clicks, marker dragging, and numeric edits
+          focuses the map on that island. If a custom island has no coordinates, manual or map
+          selected coordinates remain unchanged. Map clicks, marker dragging, and numeric edits
           update only latitude and longitude.
         </p>
       </div>
@@ -179,7 +182,7 @@ export function LocationPickerPage() {
           alternative Dhivehi labels or coordinates.
         </p>
         <ComponentExample code={locationCustomDataCode} className="min-h-64">
-          <DvIslandPickerCustomDemo />
+          <DvLocationPickerCustomDemo />
         </ComponentExample>
       </div>
 
