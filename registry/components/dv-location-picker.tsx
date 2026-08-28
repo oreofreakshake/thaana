@@ -11,30 +11,25 @@ import {
   useMap,
 } from "@/components/ui/map"
 import { cn } from "@/lib/utils"
-import type { DvAtoll, DvCoordinates, DvIsland, DvLocationValue } from "../lib/location-types"
-import { DvAtollPicker } from "./dv-atoll-picker"
+import type { DvCoordinates, DvIslandValue, DvLocationValue } from "../lib/location-types"
+import { MALDIVES_ATOLLS, type MaldivesAtoll } from "../lib/maldives-locations"
 import { DvFormField } from "./dv-form-field"
 import { DvInput } from "./dv-input"
 import { DvIslandPicker } from "./dv-island-picker"
 
 type DvLocationPickerLabels = {
-  atoll: string
   island: string
   latitude: string
   longitude: string
   map: string
   mapInstructions: string
-  atollPlaceholder: string
-  atollSearchPlaceholder: string
-  atollEmptyMessage: string
   islandPlaceholder: string
   islandSearchPlaceholder: string
   islandEmptyMessage: string
 }
 
 type DvLocationPickerProps = {
-  atolls?: readonly DvAtoll[]
-  islands?: readonly DvIsland[]
+  atolls?: readonly MaldivesAtoll[]
   value: DvLocationValue
   onValueChange: (value: DvLocationValue) => void
   showMap?: boolean
@@ -49,24 +44,19 @@ type DvLocationPickerProps = {
 }
 
 const defaultLabels: DvLocationPickerLabels = {
-  atoll: "އަތޮޅު",
   island: "ރަށް",
   latitude: "ލެޓިޓިއުޑް",
   longitude: "ލޮންޖިޓިއުޑް",
   map: "ތަނުގެ ޗާޓު",
   mapInstructions: "ޗާޓުގައި ކްލިކް ކޮށް ނުވަތަ މާކަރ ދަމާލައި ތަން ހޮވާ.",
-  atollPlaceholder: "އަތޮޅެއް ހޮވާ",
-  atollSearchPlaceholder: "އަތޮޅެއް ހޯދާ...",
-  atollEmptyMessage: "އަތޮޅެއް ނުފެނުނު",
   islandPlaceholder: "ރަށެއް ހޮވާ",
   islandSearchPlaceholder: "ރަށެއް ހޯދާ...",
   islandEmptyMessage: "ރަށެއް ނުފެނުނު",
 }
 
-function isValidCoordinates(
-  value: Pick<DvLocationValue, "latitude" | "longitude">
-): value is DvCoordinates {
+function isValidCoordinates(value: Partial<DvCoordinates> | undefined): value is DvCoordinates {
   return (
+    value !== undefined &&
     typeof value.latitude === "number" &&
     Number.isFinite(value.latitude) &&
     value.latitude >= -90 &&
@@ -78,28 +68,22 @@ function isValidCoordinates(
   )
 }
 
-function updateLocationAtoll(
-  value: DvLocationValue,
-  atollId: string,
-  islands: readonly DvIsland[]
-): DvLocationValue {
-  const selectedIsland = islands.find((island) => island.id === value.islandId)
-  const islandId = selectedIsland?.atollId === atollId ? value.islandId : undefined
-  return { ...value, atollId: atollId || undefined, islandId }
-}
-
 function updateLocationIsland(
   value: DvLocationValue,
-  islandId: string,
-  islands: readonly DvIsland[]
+  selected: DvIslandValue,
+  atolls: readonly MaldivesAtoll[]
 ): DvLocationValue {
-  const island = islands.find((entry) => entry.id === islandId)
-  if (!island) return { ...value, islandId: islandId || undefined }
-
-  const nextValue = { ...value, atollId: island.atollId, islandId: island.id }
+  const island = findIsland(atolls, selected)
+  const nextValue = { ...value, atollCode: selected.atollCode, island: selected.island }
   return isValidCoordinates(island)
     ? { ...nextValue, latitude: island.latitude, longitude: island.longitude }
     : nextValue
+}
+
+function findIsland(atolls: readonly MaldivesAtoll[], selected: DvIslandValue) {
+  return atolls
+    .find((atoll) => atoll.code === selected.atollCode)
+    ?.islands.find((island) => island.nameEn === selected.island)
 }
 
 function updateLocationCoordinates(
@@ -202,8 +186,7 @@ function CoordinateInput({
 }
 
 function DvLocationPicker({
-  atolls = [],
-  islands = [],
+  atolls,
   value,
   onValueChange,
   showMap = true,
@@ -217,6 +200,7 @@ function DvLocationPicker({
   mapClassName,
 }: DvLocationPickerProps) {
   const labels = { ...defaultLabels, ...labelsProp }
+  const dataset = atolls ?? MALDIVES_ATOLLS
   const coordinates = isValidCoordinates(value) ? value : undefined
   const validFallbackCenter =
     fallbackCenter && isValidCoordinates(fallbackCenter) ? fallbackCenter : undefined
@@ -228,9 +212,9 @@ function DvLocationPicker({
     onValueChange(updateLocationCoordinates(value, nextCoordinates))
   }
 
-  function selectIsland(islandId: string) {
-    const island = islands.find((entry) => entry.id === islandId)
-    const nextValue = updateLocationIsland(value, islandId, islands)
+  function selectIsland(selected: DvIslandValue) {
+    const island = findIsland(dataset, selected)
+    const nextValue = updateLocationIsland(value, selected, dataset)
     onValueChange(nextValue)
     if (island && isValidCoordinates(island)) {
       setCameraTarget({ latitude: island.latitude, longitude: island.longitude })
@@ -244,38 +228,23 @@ function DvLocationPicker({
       dir="rtl"
       className={cn("grid w-full gap-5", className)}
     >
-      {atolls.length > 0 ? (
-        <div className="grid gap-2">
-          <span className="text-sm font-medium">{labels.atoll}</span>
-          <DvAtollPicker
-            atolls={atolls}
-            value={value.atollId}
-            onValueChange={(atollId) => onValueChange(updateLocationAtoll(value, atollId, islands))}
-            disabled={disabled}
-            aria-label={labels.atoll}
-            placeholder={labels.atollPlaceholder}
-            searchPlaceholder={labels.atollSearchPlaceholder}
-            emptyMessage={labels.atollEmptyMessage}
-          />
-        </div>
-      ) : null}
-
-      {islands.length > 0 ? (
-        <div className="grid gap-2">
-          <span className="text-sm font-medium">{labels.island}</span>
-          <DvIslandPicker
-            islands={islands}
-            atollId={value.atollId}
-            value={value.islandId}
-            onValueChange={selectIsland}
-            disabled={disabled}
-            aria-label={labels.island}
-            placeholder={labels.islandPlaceholder}
-            searchPlaceholder={labels.islandSearchPlaceholder}
-            emptyMessage={labels.islandEmptyMessage}
-          />
-        </div>
-      ) : null}
+      <div className="grid gap-2">
+        <span className="text-sm font-medium">{labels.island}</span>
+        <DvIslandPicker
+          atolls={atolls}
+          value={
+            value.atollCode && value.island
+              ? { atollCode: value.atollCode, island: value.island }
+              : undefined
+          }
+          onValueChange={selectIsland}
+          disabled={disabled}
+          aria-label={labels.island}
+          placeholder={labels.islandPlaceholder}
+          searchPlaceholder={labels.islandSearchPlaceholder}
+          emptyMessage={labels.islandEmptyMessage}
+        />
+      </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <CoordinateInput
@@ -348,8 +317,8 @@ export {
   type DvLocationPickerLabels,
   type DvLocationPickerProps,
   defaultLabels as dvLocationPickerDefaultLabels,
+  findIsland,
   isValidCoordinates,
-  updateLocationAtoll,
   updateLocationCoordinates,
   updateLocationIsland,
 }

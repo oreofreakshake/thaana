@@ -1,29 +1,18 @@
-type DvAtoll = {
-  id: string
-  code?: string
-  nameDv: string
-  nameEn: string
-}
-
-type DvIsland = {
-  id: string
-  atollId: string
-  nameDv: string
-  nameEn: string
-  latitude?: number
-  longitude?: number
-}
-
-type DvCoordinates = {
+interface DvCoordinates {
   latitude: number
   longitude: number
 }
 
-type DvLocationValue = {
-  atollId?: string
-  islandId?: string
+interface DvIslandValue {
+  atollCode: string
+  island: string
+}
+
+interface DvLocationValue {
+  atollCode?: string
+  island?: string
   latitude?: number
   longitude?: number
 }
 
-export type { DvAtoll, DvCoordinates, DvIsland, DvLocationValue }
+export type { DvCoordinates, DvIslandValue, DvLocationValue }

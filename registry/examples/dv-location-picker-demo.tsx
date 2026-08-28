@@ -2,59 +2,73 @@
 
 import * as React from "react"
 
-import { DvAtollPicker } from "@/registry/components/dv-atoll-picker"
 import { DvIslandPicker } from "@/registry/components/dv-island-picker"
 import { DvLocationPicker } from "@/registry/components/dv-location-picker"
-import type { DvAtoll, DvIsland, DvLocationValue } from "@/registry/lib/location-types"
+import type { DvIslandValue, DvLocationValue } from "@/registry/lib/location-types"
+import type { MaldivesAtoll } from "@/registry/lib/maldives-locations"
 
-const mockAtolls: DvAtoll[] = [
-  { id: "sample-north", code: "SN", nameDv: "މިސާލު އުތުރު އަތޮޅު", nameEn: "Sample North Atoll" },
-  { id: "sample-south", code: "SS", nameDv: "މިސާލު ދެކުނު އަތޮޅު", nameEn: "Sample South Atoll" },
-]
-
-const mockIslands: DvIsland[] = [
+const customAtolls: MaldivesAtoll[] = [
   {
-    id: "sample-harbor",
-    atollId: "sample-north",
-    nameDv: "މިސާލު ބަނދަރު",
-    nameEn: "Sample Harbor",
-    latitude: 4.1755,
-    longitude: 73.5093,
-  },
-  {
-    id: "sample-market",
-    atollId: "sample-north",
-    nameDv: "މިސާލު މާކެޓް",
-    nameEn: "Sample Market",
-    latitude: 4.181,
-    longitude: 73.51,
-  },
-  {
-    id: "sample-jetty",
-    atollId: "sample-south",
-    nameDv: "މިސާލު ޖެޓީ",
-    nameEn: "Sample Jetty",
+    code: "SN",
+    nameEn: "Sample North Atoll",
+    nameDv: "މިސާލު އުތުރު އަތޮޅު",
+    abbreviationDv: "ސނ",
+    islands: [
+      {
+        nameEn: "Sample Harbor",
+        nameDv: "މިސާލު ބަނދަރު",
+        latitude: 4.1755,
+        longitude: 73.5093,
+      },
+      {
+        nameEn: "Sample Jetty",
+        nameDv: "މިސާލު ޖެޓީ",
+      },
+    ],
   },
 ]
 
-function DvAtollPickerDemo() {
-  const [value, setValue] = React.useState("sample-north")
+function DvIslandPickerDemo() {
+  const [value, setValue] = React.useState<DvIslandValue>()
   return (
     <div lang="dv" dir="rtl" className="w-full max-w-sm">
-      <DvAtollPicker atolls={mockAtolls} value={value} onValueChange={setValue} />
+      <DvIslandPicker value={value} onValueChange={setValue} />
     </div>
   )
 }
 
-function DvIslandPickerDemo() {
-  const [value, setValue] = React.useState("")
+function DvIslandPickerCustomDemo() {
+  const [value, setValue] = React.useState<DvIslandValue>()
   return (
     <div lang="dv" dir="rtl" className="w-full max-w-sm">
+      <DvIslandPicker atolls={customAtolls} value={value} onValueChange={setValue} />
+    </div>
+  )
+}
+
+function DvIslandPickerDisabledDemo() {
+  return (
+    <div className="w-full max-w-sm">
       <DvIslandPicker
-        islands={mockIslands}
-        atollId="sample-north"
+        value={{ atollCode: "MLE", island: "Malé" }}
+        onValueChange={() => undefined}
+        disabled
+      />
+    </div>
+  )
+}
+
+function DvIslandPickerLtrDemo() {
+  const [value, setValue] = React.useState<DvIslandValue>()
+  return (
+    <div dir="ltr" className="w-full max-w-sm">
+      <DvIslandPicker
         value={value}
         onValueChange={setValue}
+        dir="ltr"
+        lang="en"
+        placeholder="Select an island"
+        searchPlaceholder="Search islands or atolls..."
       />
     </div>
   )
@@ -62,8 +76,8 @@ function DvIslandPickerDemo() {
 
 function DvLocationPickerDemo() {
   const [value, setValue] = React.useState<DvLocationValue>({
-    atollId: "sample-north",
-    islandId: "sample-harbor",
+    atollCode: "MLE",
+    island: "Malé",
     latitude: 4.1755,
     longitude: 73.5093,
   })
@@ -72,11 +86,9 @@ function DvLocationPickerDemo() {
     <div lang="dv" dir="rtl" className="w-full max-w-2xl space-y-4">
       <div>
         <h3 className="m-0 text-lg font-semibold">ލޮކޭޝަން ނަގާ</h3>
-        <p className="mt-1 text-sm text-muted-foreground">މިއީ ޑެމޯއަށް ހަދާފައިވާ މިސާލު ޑޭޓާއެކެވެ.</p>
+        <p className="mt-1 text-sm text-muted-foreground">ރަށް ހޮވާލައި ނުވަތަ ޗާޓުން ލޮކޭޝަން ނަގާ.</p>
       </div>
       <DvLocationPicker
-        atolls={mockAtolls}
-        islands={mockIslands}
         value={value}
         onValueChange={setValue}
         fallbackCenter={{ latitude: 4.1755, longitude: 73.5093 }}
@@ -93,22 +105,17 @@ function DvLocationPickerWithoutMapDemo() {
   const [value, setValue] = React.useState<DvLocationValue>({})
   return (
     <div className="w-full max-w-lg">
-      <DvLocationPicker
-        atolls={mockAtolls}
-        islands={mockIslands}
-        value={value}
-        onValueChange={setValue}
-        showMap={false}
-      />
+      <DvLocationPicker value={value} onValueChange={setValue} showMap={false} />
     </div>
   )
 }
 
 export {
-  DvAtollPickerDemo,
+  customAtolls,
+  DvIslandPickerCustomDemo,
   DvIslandPickerDemo,
+  DvIslandPickerDisabledDemo,
+  DvIslandPickerLtrDemo,
   DvLocationPickerDemo,
   DvLocationPickerWithoutMapDemo,
-  mockAtolls,
-  mockIslands,
 }

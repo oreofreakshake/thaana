@@ -1,13 +1,13 @@
 import {
-  DvAtollPickerDemo,
+  DvIslandPickerCustomDemo,
   DvIslandPickerDemo,
+  DvIslandPickerDisabledDemo,
+  DvIslandPickerLtrDemo,
   DvLocationPickerDemo,
   DvLocationPickerWithoutMapDemo,
 } from "@/registry/examples/dv-location-picker-demo"
 import { ComponentExample } from "@/src/components/component-example"
 import {
-  atollPickerUsage,
-  installAtollPickerCommands,
   installIslandPickerCommands,
   installLocationPickerCommands,
   islandPickerUsage,
@@ -15,127 +15,130 @@ import {
 } from "@/src/content/code-examples"
 import { ComponentPage } from "@/src/pages/docs/component-pages"
 
-const atollPreviewCode = `<DvAtollPicker
-  atolls={atolls}
-  value={atollId}
-  onValueChange={setAtollId}
+const islandPreviewCode = `const [value, setValue] = React.useState<DvIslandValue>()
+
+<DvIslandPicker value={value} onValueChange={setValue} />`
+
+const customDataCode = `const customAtolls: MaldivesAtoll[] = [
+  {
+    code: "SN",
+    nameEn: "Sample North Atoll",
+    nameDv: "މިސާލު އުތުރު އަތޮޅު",
+    abbreviationDv: "ސނ",
+    islands: [
+      {
+        nameEn: "Sample Harbor",
+        nameDv: "މިސާލު ބަނދަރު",
+        latitude: 4.1755,
+        longitude: 73.5093,
+      },
+    ],
+  },
+]
+
+<DvIslandPicker
+  atolls={customAtolls}
+  value={value}
+  onValueChange={setValue}
 />`
 
-const islandPreviewCode = `<DvIslandPicker
-  islands={islands}
-  atollId={atollId}
-  value={islandId}
-  onValueChange={setIslandId}
+const disabledCode = `<DvIslandPicker
+  value={{ atollCode: "MLE", island: "Malé" }}
+  onValueChange={() => undefined}
+  disabled
 />`
 
-const locationPreviewCode = `<DvLocationPicker
-  atolls={atolls}
-  islands={islands}
-  value={location}
-  onValueChange={setLocation}
+const ltrCode = `<DvIslandPicker
+  value={value}
+  onValueChange={setValue}
+  dir="ltr"
+  lang="en"
+  placeholder="Select an island"
+  searchPlaceholder="Search islands or atolls..."
+/>`
+
+const locationPreviewCode = `const [value, setValue] = React.useState<DvLocationValue>({})
+
+<DvLocationPicker
+  value={value}
+  onValueChange={setValue}
   fallbackCenter={{ latitude: 4.1755, longitude: 73.5093 }}
   defaultZoom={11}
 />`
 
-const customDataCode = `const atolls: DvAtoll[] = [
-  {
-    id: "custom-a",
-    code: "CA",
-    nameDv: "މިސާލު އަތޮޅު",
-    nameEn: "Custom Atoll",
-  },
-]
-
-const islands: DvIsland[] = [
-  {
-    id: "custom-island",
-    atollId: "custom-a",
-    nameDv: "މިސާލު ރަށް",
-    nameEn: "Custom Island",
-    latitude: 4.1755,
-    longitude: 73.5093,
-  },
-]`
+const locationCustomDataCode = `<DvLocationPicker
+  atolls={customAtolls}
+  value={location}
+  onValueChange={setLocation}
+/>`
 
 const mapDisabledCode = `<DvLocationPicker
-  atolls={atolls}
-  islands={islands}
   value={location}
   onValueChange={setLocation}
   showMap={false}
 />`
-
-const dhivehiLabelsCode = `<DvLocationPicker
-  value={location}
-  onValueChange={setLocation}
-  labels={{
-    atoll: "އަތޮޅު",
-    island: "ރަށް",
-    map: "ލޮކޭޝަން ނަގާ",
-  }}
-  showMap={false}
-/>`
-
-const mixedLanguageCode = `const islands: DvIsland[] = [
-  {
-    id: "sample-harbor",
-    atollId: "sample-north",
-    nameDv: "މިސާލު ބަނދަރު",
-    nameEn: "Sample Harbor",
-  },
-]`
-
-export function AtollPickerPage() {
-  return (
-    <ComponentPage
-      name="DvAtollPicker"
-      description="A controlled, searchable atoll picker for consumer-supplied Dhivehi and English place data."
-      preview={<DvAtollPickerDemo />}
-      previewCode={atollPreviewCode}
-      installCommands={installAtollPickerCommands}
-      usage={atollPickerUsage}
-      rtlBehavior={
-        <p>
-          The picker composes <code>DvCombobox</code>, so its trigger, search field, keyboard
-          navigation, portalled content, and bidi isolation follow the existing Thaana behavior.
-          Dhivehi and English names, codes, and IDs are all searchable.
-        </p>
-      }
-    >
-      <div id="data-model" className="scroll-m-20">
-        <h3>Data model</h3>
-        <p>
-          Supply stable IDs plus <code>nameDv</code>, <code>nameEn</code>, and an optional
-          <code>code</code>. Thaana does not bundle or fetch atoll data.
-        </p>
-      </div>
-    </ComponentPage>
-  )
-}
 
 export function IslandPickerPage() {
   return (
     <ComponentPage
       name="DvIslandPicker"
-      description="A controlled mixed-language island picker with optional atoll filtering."
+      description="A preloaded, atoll grouped Maldives inhabited island picker with mixed-language search and custom data overrides."
       preview={<DvIslandPickerDemo />}
       previewCode={islandPreviewCode}
       installCommands={installIslandPickerCommands}
       usage={islandPickerUsage}
       rtlBehavior={
         <p>
-          It inherits the same mixed-direction search and portal-safe RTL behavior from
-          <code>DvCombobox</code>. Passing <code>atollId</code> limits the available islands without
-          changing the supplied dataset.
+          The trigger and portalled command menu default to Dhivehi and RTL, including the built-in
+          island labels and atoll headings. Search direction follows the first strong character,
+          while labels use isolated bidi boundaries. An explicit <code>dir=&quot;ltr&quot;</code>
+          switches the built-in visible labels to English.
         </p>
       }
     >
-      <div id="filtering" className="scroll-m-20">
-        <h3>Filtering by atoll</h3>
+      <div id="built-in-data" className="scroll-m-20">
+        <h3>Built-in Maldives data</h3>
         <p>
-          Island records reference an atoll through <code>atollId</code>. Omit the picker&apos;s
-          <code>atollId</code> prop when every island should remain searchable.
+          No dataset prop is required. The picker ships with 189 inhabited islands grouped by
+          structured atoll code and name. Dhivehi labels and coordinates are matched from the
+          Maldives Geomatics Department&apos;s OneMap residential island dataset; stable values keep
+          the supplied English island name alongside <code>atollCode</code>.
         </p>
+      </div>
+
+      <div id="search" className="scroll-m-20">
+        <h3>Grouped search</h3>
+        <p>
+          Search matches island names, atoll names, atoll codes, and optional Dhivehi names or
+          abbreviations. Keyboard navigation and selection come from shadcn Command and Popover.
+        </p>
+      </div>
+
+      <div id="custom-data" className="scroll-m-20">
+        <h3>Custom data</h3>
+        <p>
+          Passing <code>atolls</code> replaces the built-in list. This is also how applications can
+          replace or extend the maintained labels and coordinates. The records below are fictional
+          examples.
+        </p>
+        <ComponentExample code={customDataCode} className="min-h-64">
+          <DvIslandPickerCustomDemo />
+        </ComponentExample>
+      </div>
+
+      <div id="disabled" className="scroll-m-20">
+        <h3>Disabled</h3>
+        <ComponentExample code={disabledCode} className="min-h-56">
+          <DvIslandPickerDisabledDemo />
+        </ComponentExample>
+      </div>
+
+      <div id="ltr" className="scroll-m-20">
+        <h3>LTR interface</h3>
+        <p>Direction, language, placeholders, empty text, and class names remain overridable.</p>
+        <ComponentExample code={ltrCode} className="min-h-56">
+          <DvIslandPickerLtrDemo />
+        </ComponentExample>
       </div>
     </ComponentPage>
   )
@@ -145,59 +148,38 @@ export function LocationPickerPage() {
   return (
     <ComponentPage
       name="DvLocationPicker"
-      description="A data-driven Dhivehi location form that combines atoll and island selection, accessible coordinates, and a mapcn-powered MapLibre map."
+      description="A Maldives ready location form combining the preloaded island picker, accessible coordinates, and a mapcn powered MapLibre map."
       preview={<DvLocationPickerDemo />}
       previewCode={locationPreviewCode}
       installCommands={installLocationPickerCommands}
       usage={locationPickerUsage}
       rtlBehavior={
         <p>
-          Labels and selection controls default to Dhivehi and RTL. Latitude and longitude are
-          native numeric inputs with <code>dir=&quot;ltr&quot;</code>, tabular Latin digits, and
-          geographic ranges. The map is never the only way to set or read a location.
+          Island selection and labels default to Dhivehi and RTL. Latitude and longitude are native
+          numeric inputs with <code>dir=&quot;ltr&quot;</code>, tabular Latin digits, and geographic
+          ranges. The map is never the only way to set or read a location.
         </p>
       }
     >
       <div id="behavior" className="scroll-m-20">
         <h3>Selection behavior</h3>
         <p>
-          Changing atoll clears an incompatible island but retains coordinates. An island with a
-          valid coordinate pair updates and focuses the marker; an island without coordinates
-          retains manually entered or map-selected coordinates. Map clicks and marker dragging
+          Selecting an island always sets its atoll code and English name. A complete valid
+          coordinate pair from the built-in or custom data replaces the current coordinates and
+          focuses the map on that island. If a custom island has no coordinates, manual or
+          map selected coordinates remain unchanged. Map clicks, marker dragging, and numeric edits
           update only latitude and longitude.
         </p>
       </div>
 
-      <div id="dhivehi-labels" className="scroll-m-20">
-        <h3>Dhivehi labels</h3>
-        <p>
-          The built-in UI copy is Dhivehi, and every label and picker message can be replaced
-          through the small <code>labels</code> object.
-        </p>
-        <ComponentExample code={dhivehiLabelsCode} className="min-h-80">
-          <DvLocationPickerWithoutMapDemo />
-        </ComponentExample>
-      </div>
-
-      <div id="mixed-language" className="scroll-m-20">
-        <h3>Mixed-language place names</h3>
-        <p>
-          Each option shows its Dhivehi and English names inside a bidi boundary. Search accepts
-          either script, along with the stable record ID and atoll code where available.
-        </p>
-        <ComponentExample code={mixedLanguageCode} className="min-h-64">
-          <DvIslandPickerDemo />
-        </ComponentExample>
-      </div>
-
       <div id="custom-data" className="scroll-m-20">
-        <h3>Custom data</h3>
+        <h3>Custom location data</h3>
         <p>
-          All place data comes from your application. The example records below are deliberately
-          fictional and exist only to demonstrate the serializable data shape.
+          Pass the same nested atoll records to replace the built-in dataset and optionally provide
+          alternative Dhivehi labels or coordinates.
         </p>
-        <ComponentExample code={customDataCode} className="min-h-64">
-          <DvIslandPickerDemo />
+        <ComponentExample code={locationCustomDataCode} className="min-h-64">
+          <DvIslandPickerCustomDemo />
         </ComponentExample>
       </div>
 
@@ -205,7 +187,7 @@ export function LocationPickerPage() {
         <h3>Without a map</h3>
         <p>
           Set <code>showMap=false</code> for forms or rendering environments that should use only
-          the pickers and accessible coordinate inputs.
+          island selection and accessible coordinate inputs.
         </p>
         <ComponentExample code={mapDisabledCode} className="min-h-80">
           <DvLocationPickerWithoutMapDemo />
@@ -216,7 +198,7 @@ export function LocationPickerPage() {
         <h3>Map deployment</h3>
         <p>
           The registry installs mapcn&apos;s <code>@mapcn/map</code> item, which imports MapLibre
-          CSS, uses CARTO light and dark styles by default, and loads a version-matched MapLibre
+          CSS, uses CARTO light and dark styles by default, and loads a version matched MapLibre
           worker from <code>unpkg.com</code>. No map token is required for the default styles.
         </p>
         <p>

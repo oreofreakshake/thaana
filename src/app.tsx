@@ -36,11 +36,6 @@ import {
 import { HomePage } from "@/src/pages/home"
 import { NotFoundPage } from "@/src/pages/not-found"
 
-const AtollPickerPage = lazy(() =>
-  import("@/src/pages/docs/location-pages").then((module) => ({
-    default: module.AtollPickerPage,
-  }))
-)
 const IslandPickerPage = lazy(() =>
   import("@/src/pages/docs/location-pages").then((module) => ({
     default: module.IslandPickerPage,
@@ -76,14 +71,6 @@ export function App() {
           <Route path="components/search" element={<SearchPage />} />
           <Route path="components/combobox" element={<ComboboxPage />} />
           <Route path="components/date-picker" element={<DatePickerPage />} />
-          <Route
-            path="components/atoll-picker"
-            element={
-              <Suspense fallback={null}>
-                <AtollPickerPage />
-              </Suspense>
-            }
-          />
           <Route
             path="components/island-picker"
             element={

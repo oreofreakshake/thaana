@@ -4,7 +4,6 @@ import { afterEach, describe, expect, it, vi } from "vitest"
 
 import { Dialog, DialogTitle } from "@/components/ui/dialog"
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu"
-import { DvAtollPicker } from "@/registry/components/dv-atoll-picker"
 import { DvCombobox } from "@/registry/components/dv-combobox"
 import { DvDatePicker, formatGregorianDate } from "@/registry/components/dv-date-picker"
 import { DvDialogContent } from "@/registry/components/dv-dialog-content"
@@ -14,18 +13,19 @@ import { formatHijriDate } from "@/registry/components/dv-hijri-calendar"
 import { DvIslandPicker } from "@/registry/components/dv-island-picker"
 import {
   DvLocationPicker,
-  updateLocationAtoll,
   updateLocationCoordinates,
   updateLocationIsland,
 } from "@/registry/components/dv-location-picker"
 import { DvPagination } from "@/registry/components/dv-pagination"
 import { DvPhoneInput } from "@/registry/components/dv-phone-input"
+import { MALDIVES_ATOLLS, type MaldivesAtoll } from "@/registry/lib/maldives-locations"
 
 const mapTestState = vi.hoisted(() => ({
   handlers: {} as Record<
     string,
     ((event: { lngLat: { lat: number; lng: number } }) => void) | undefined
   >,
+  dragEnd: undefined as ((coordinates: { lat: number; lng: number }) => void) | undefined,
 }))
 
 vi.mock("@/components/ui/map", async () => {
@@ -43,8 +43,16 @@ vi.mock("@/components/ui/map", async () => {
     Map: ({ children }: { children: React.ReactNode }) =>
       ReactModule.createElement("div", { "data-testid": "map" }, children),
     MapControls: () => null,
-    MapMarker: ({ children }: { children: React.ReactNode }) =>
-      ReactModule.createElement(ReactModule.Fragment, null, children),
+    MapMarker: ({
+      children,
+      onDragEnd,
+    }: {
+      children: React.ReactNode
+      onDragEnd?: (coordinates: { lat: number; lng: number }) => void
+    }) => {
+      mapTestState.dragEnd = onDragEnd
+      return ReactModule.createElement(ReactModule.Fragment, null, children)
+    },
     MarkerContent: ({ children }: { children: React.ReactNode }) =>
       ReactModule.createElement(ReactModule.Fragment, null, children),
     useMap: () => ({ map, isLoaded: true, resolvedTheme: "light" }),
@@ -60,96 +68,104 @@ class ResizeObserverMock {
 vi.stubGlobal("ResizeObserver", ResizeObserverMock)
 Element.prototype.scrollIntoView = vi.fn()
 
-afterEach(cleanup)
+afterEach(() => {
+  cleanup()
+  mapTestState.handlers = {}
+  mapTestState.dragEnd = undefined
+})
 
-const locationAtolls = [
-  { id: "north", code: "N", nameDv: "އުތުރު އަތޮޅު", nameEn: "North Atoll" },
-  { id: "south", code: "S", nameDv: "ދެކުނު އަތޮޅު", nameEn: "South Atoll" },
-]
-
-const locationIslands = [
+const customAtolls: MaldivesAtoll[] = [
   {
-    id: "harbor",
-    atollId: "north",
-    nameDv: "ބަނދަރު",
-    nameEn: "Harbor",
-    latitude: 4.1,
-    longitude: 73.5,
+    code: "N",
+    nameEn: "North Atoll",
+    nameDv: "އުތުރު އަތޮޅު",
+    abbreviationDv: "އ",
+    islands: [
+      {
+        nameEn: "Harbor",
+        nameDv: "ބަނދަރު",
+        latitude: 4.1,
+        longitude: 73.5,
+      },
+      { nameEn: "Jetty", nameDv: "ޖެޓީ" },
+    ],
   },
-  { id: "jetty", atollId: "south", nameDv: "ޖެޓީ", nameEn: "Jetty" },
 ]
 
-describe("DvAtollPicker", () => {
-  it("renders mixed-language labels and updates a controlled value", () => {
+describe("DvIslandPicker", () => {
+  it("uses built-in data and returns the island with its atoll", () => {
+    const onValueChange = vi.fn()
+    render(<DvIslandPicker defaultOpen onValueChange={onValueChange} />)
+
+    const search = screen.getByLabelText("ރަށެއް ނުވަތަ އަތޮޅެއް ހޯދާ...")
+    fireEvent.change(search, { target: { value: "Baarah" } })
+    expect(search.getAttribute("dir")).toBe("ltr")
+    fireEvent.click(screen.getByText("ބާރަށް"))
+    expect(onValueChange).toHaveBeenCalledWith({ atollCode: "HA", island: "Baarah" })
+  })
+
+  it.each(["HA", "Haa Alif"])("finds built-in islands by %s", (query) => {
+    render(<DvIslandPicker defaultOpen onValueChange={() => undefined} />)
+    fireEvent.change(screen.getByLabelText("ރަށެއް ނުވަތަ އަތޮޅެއް ހޯދާ..."), {
+      target: { value: query },
+    })
+    expect(screen.getByText("ބާރަށް")).toBeTruthy()
+    expect(screen.getByText("ހއ. އަތޮޅު")).toBeTruthy()
+  })
+
+  it("replaces built-in data and supports mixed-language controlled selection", () => {
     function ControlledPicker() {
-      const [value, setValue] = React.useState("north")
-      return <DvAtollPicker atolls={locationAtolls} value={value} onValueChange={setValue} />
+      const [value, setValue] = React.useState<{ atollCode: string; island: string }>()
+      return (
+        <DvIslandPicker atolls={customAtolls} value={value} onValueChange={setValue} defaultOpen />
+      )
     }
 
     render(<ControlledPicker />)
-    expect(screen.getByRole("combobox").textContent).toContain("އުތުރު އަތޮޅު — North Atoll")
-    fireEvent.click(screen.getByRole("combobox"))
-    fireEvent.click(screen.getByText("ދެކުނު އަތޮޅު — South Atoll"))
-    expect(screen.getByRole("combobox").textContent).toContain("South Atoll")
+    const search = screen.getByLabelText("ރަށެއް ނުވަތަ އަތޮޅެއް ހޯދާ...")
+    fireEvent.change(search, { target: { value: "ބަނދަރު" } })
+    expect(search.getAttribute("dir")).toBe("rtl")
+    expect(screen.queryByText("Baarah")).toBeNull()
+    fireEvent.click(screen.getByText("ބަނދަރު"))
+    expect(screen.getByRole("combobox").textContent).toContain("ބަނދަރު · އ")
   })
-})
 
-describe("DvIslandPicker", () => {
-  it("filters by atoll and supports mixed-direction search in controlled usage", () => {
-    const onValueChange = vi.fn()
-    render(
-      <DvIslandPicker
-        islands={locationIslands}
-        atollId="north"
-        value=""
-        onValueChange={onValueChange}
-      />
-    )
+  it("renders English labels for an explicit LTR interface", () => {
+    render(<DvIslandPicker dir="ltr" defaultOpen onValueChange={() => undefined} />)
+    expect(screen.getByText("HA · Haa Alif")).toBeTruthy()
+    expect(screen.getByText("Baarah")).toBeTruthy()
+  })
 
-    fireEvent.click(screen.getByRole("combobox"))
-    const search = screen.getByLabelText("ރަށެއް ހޯދާ...")
-    fireEvent.change(search, { target: { value: "Harbor" } })
-    expect(search.getAttribute("dir")).toBe("ltr")
-    expect(screen.getByText("ބަނދަރު — Harbor")).toBeTruthy()
-    expect(screen.queryByText("ޖެޓީ — Jetty")).toBeNull()
-    fireEvent.click(screen.getByText("ބަނދަރު — Harbor"))
-    expect(onValueChange).toHaveBeenCalledWith("harbor")
+  it("is accessible, RTL by default, and supports disabled behavior", () => {
+    render(<DvIslandPicker onValueChange={() => undefined} disabled />)
+    const trigger = screen.getByRole("combobox")
+    expect(trigger.getAttribute("dir")).toBe("rtl")
+    expect(trigger.getAttribute("lang")).toBe("dv")
+    expect(trigger.getAttribute("aria-expanded")).toBe("false")
+    expect((trigger as HTMLButtonElement).disabled).toBe(true)
   })
 })
 
 describe("DvLocationPicker", () => {
-  it("implements atoll, island, and coordinate update semantics", () => {
-    const initial = { islandId: "harbor", latitude: 1, longitude: 2 }
-    expect(updateLocationAtoll(initial, "south", locationIslands)).toEqual({
-      atollId: "south",
-      islandId: undefined,
-      latitude: 1,
-      longitude: 2,
-    })
-    expect(updateLocationIsland(initial, "harbor", locationIslands)).toEqual({
-      atollId: "north",
-      islandId: "harbor",
+  const selected = { atollCode: "N", island: "Harbor" }
+  const initial = { ...selected, latitude: 1, longitude: 2 }
+
+  it("replaces coordinates only when the selected island provides a valid pair", () => {
+    expect(updateLocationIsland(initial, selected, customAtolls)).toEqual({
+      ...selected,
       latitude: 4.1,
       longitude: 73.5,
     })
-    expect(updateLocationIsland(initial, "jetty", locationIslands)).toEqual({
-      atollId: "south",
-      islandId: "jetty",
-      latitude: 1,
-      longitude: 2,
-    })
-    expect(updateLocationCoordinates(initial, { latitude: 3, longitude: 4 })).toEqual({
-      islandId: "harbor",
-      latitude: 3,
-      longitude: 4,
-    })
+    expect(
+      updateLocationIsland(initial, { atollCode: "N", island: "Jetty" }, customAtolls)
+    ).toEqual({ atollCode: "N", island: "Jetty", latitude: 1, longitude: 2 })
   })
 
-  it("selecting an island emits its valid coordinates", () => {
+  it("selecting a custom island updates atoll, island, and available coordinates", () => {
     const onValueChange = vi.fn()
     render(
       <DvLocationPicker
-        islands={locationIslands}
+        atolls={customAtolls}
         value={{}}
         onValueChange={onValueChange}
         showMap={false}
@@ -157,37 +173,93 @@ describe("DvLocationPicker", () => {
     )
 
     fireEvent.click(screen.getByLabelText("ރަށް"))
-    fireEvent.click(screen.getByText("ބަނދަރު — Harbor"))
+    fireEvent.click(screen.getByText("ބަނދަރު"))
     expect(onValueChange).toHaveBeenCalledWith({
-      atollId: "north",
-      islandId: "harbor",
+      atollCode: "N",
+      island: "Harbor",
       latitude: 4.1,
       longitude: 73.5,
     })
   })
 
-  it("map selection updates coordinates and coordinate fields remain LTR", () => {
-    const onValueChange = vi.fn()
-    render(<DvLocationPicker value={{ islandId: "manual" }} onValueChange={onValueChange} />)
-
-    expect(screen.getByLabelText("ލެޓިޓިއުޑް").getAttribute("dir")).toBe("ltr")
-    expect(screen.getByLabelText("ލޮންޖިޓިއުޑް").getAttribute("dir")).toBe("ltr")
-    act(() => mapTestState.handlers.click?.({ lngLat: { lat: 4.2, lng: 73.6 } }))
-    expect(onValueChange).toHaveBeenCalledWith({
-      islandId: "manual",
-      latitude: 4.2,
-      longitude: 73.6,
+  it("a built-in island replaces coordinates with its official map position", () => {
+    expect(
+      updateLocationIsland(
+        { latitude: 4.2, longitude: 73.6 },
+        { atollCode: "HA", island: "Baarah" },
+        MALDIVES_ATOLLS
+      )
+    ).toEqual({
+      atollCode: "HA",
+      island: "Baarah",
+      latitude: 6.816661,
+      longitude: 73.208382,
     })
   })
 
-  it("allows direct coordinate editing without a map", () => {
+  it("map click and marker drag update only coordinates", () => {
     const onValueChange = vi.fn()
-    render(
-      <DvLocationPicker value={{ longitude: 73.5 }} onValueChange={onValueChange} showMap={false} />
-    )
+    render(<DvLocationPicker value={initial} onValueChange={onValueChange} />)
 
-    fireEvent.change(screen.getByLabelText("ލެޓިޓިއުޑް"), { target: { value: "4.1755" } })
-    expect(onValueChange).toHaveBeenCalledWith({ latitude: 4.1755, longitude: 73.5 })
+    act(() => mapTestState.handlers.click?.({ lngLat: { lat: 4.2, lng: 73.6 } }))
+    expect(onValueChange).toHaveBeenCalledWith({ ...selected, latitude: 4.2, longitude: 73.6 })
+    act(() => mapTestState.dragEnd?.({ lat: 4.3, lng: 73.7 }))
+    expect(onValueChange).toHaveBeenCalledWith({ ...selected, latitude: 4.3, longitude: 73.7 })
+  })
+
+  it("manual LTR coordinate editing preserves island selection without rendering a map", () => {
+    const onValueChange = vi.fn()
+    render(<DvLocationPicker value={initial} onValueChange={onValueChange} showMap={false} />)
+
+    expect(screen.queryByTestId("map")).toBeNull()
+    const latitude = screen.getByLabelText("ލެޓިޓިއުޑް")
+    expect(latitude.getAttribute("dir")).toBe("ltr")
+    fireEvent.change(latitude, { target: { value: "4.1755" } })
+    expect(onValueChange).toHaveBeenCalledWith({
+      ...selected,
+      latitude: 4.1755,
+      longitude: 2,
+    })
+    expect(updateLocationCoordinates(initial, { latitude: 3 })).toEqual({
+      ...selected,
+      latitude: 3,
+      longitude: 2,
+    })
+  })
+
+  it("ships the complete supplied atoll grouping", () => {
+    expect(MALDIVES_ATOLLS).toHaveLength(21)
+    expect(MALDIVES_ATOLLS.flatMap((atoll) => atoll.islands)).toHaveLength(189)
+    expect(
+      MALDIVES_ATOLLS.every((atoll) =>
+        atoll.islands.every(
+          (island) =>
+            island.nameDv &&
+            typeof island.latitude === "number" &&
+            typeof island.longitude === "number"
+        )
+      )
+    ).toBe(true)
+    expect(MALDIVES_ATOLLS.find((atoll) => atoll.code === "MLE")?.islands).toEqual([
+      {
+        nameEn: "Hulhumalé",
+        nameDv: "ހުޅުމާލެ",
+        latitude: 4.222071,
+        longitude: 73.542463,
+      },
+      {
+        nameEn: "Malé",
+        nameDv: "މާލެ",
+        latitude: 4.174446,
+        longitude: 73.5097,
+      },
+      {
+        nameEn: "Villimalé",
+        nameDv: "ވިލިނގިލި",
+        latitude: 4.173395,
+        longitude: 73.485279,
+      },
+    ])
   })
 })
 
