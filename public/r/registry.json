@@ -96,6 +96,65 @@
       ]
     },
     {
+      "name": "dv-island-picker",
+      "type": "registry:component",
+      "title": "Dhivehi Island Picker",
+      "description": "A preloaded, atoll-grouped Maldives inhabited-island picker with mixed-language search and custom-data overrides.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": ["button", "command", "popover"],
+      "files": [
+        {
+          "path": "registry/components/dv-island-picker.tsx",
+          "type": "registry:component",
+          "target": "@components/dv-island-picker.tsx"
+        },
+        {
+          "path": "registry/lib/location-types.ts",
+          "type": "registry:lib",
+          "target": "@lib/location-types.ts"
+        },
+        {
+          "path": "registry/lib/maldives-locations.ts",
+          "type": "registry:lib",
+          "target": "@lib/maldives-locations.ts"
+        },
+        {
+          "path": "registry/lib/text-direction.ts",
+          "type": "registry:lib",
+          "target": "@lib/text-direction.ts"
+        }
+      ]
+    },
+    {
+      "name": "dv-location-picker",
+      "type": "registry:component",
+      "title": "Dhivehi Location Picker",
+      "description": "A Maldives-ready island, coordinate, and map picker composed with mapcn and MapLibre.",
+      "registryDependencies": [
+        "@mapcn/map",
+        "https://thaana.yazak.me/r/dv-island-picker.json",
+        "https://thaana.yazak.me/r/dv-input.json",
+        "https://thaana.yazak.me/r/dv-form-field.json"
+      ],
+      "files": [
+        {
+          "path": "registry/components/dv-location-picker.tsx",
+          "type": "registry:component",
+          "target": "@components/dv-location-picker.tsx"
+        },
+        {
+          "path": "registry/lib/location-types.ts",
+          "type": "registry:lib",
+          "target": "@lib/location-types.ts"
+        },
+        {
+          "path": "registry/lib/maldives-locations.ts",
+          "type": "registry:lib",
+          "target": "@lib/maldives-locations.ts"
+        }
+      ]
+    },
+    {
       "name": "dv-form-field",
       "type": "registry:component",
       "title": "Dhivehi Form Field",

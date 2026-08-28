@@ -22,6 +22,14 @@ export const installComboboxCommands = shadcnCommands("add oreofreakshake/thaana
 
 export const installDatePickerCommands = shadcnCommands("add oreofreakshake/thaana/dv-date-picker")
 
+export const installIslandPickerCommands = shadcnCommands(
+  "add oreofreakshake/thaana/dv-island-picker"
+)
+
+export const installLocationPickerCommands = shadcnCommands(
+  "add oreofreakshake/thaana/dv-location-picker"
+)
+
 export const installFormFieldCommands = shadcnCommands("add oreofreakshake/thaana/dv-form-field")
 
 export const installCurrencyInputCommands = shadcnCommands(
@@ -131,6 +139,26 @@ export function InvoiceDate() {
   const [date, setDate] = useState<Date>()
 
   return <DvDatePicker value={date} onValueChange={setDate} />
+}`
+
+export const islandPickerUsage = `import { useState } from "react"
+
+import { DvIslandPicker, type DvIslandValue } from "@/components/dv-island-picker"
+
+export function IslandField() {
+  const [value, setValue] = useState<DvIslandValue>()
+  return <DvIslandPicker value={value} onValueChange={setValue} />
+}`
+
+export const locationPickerUsage = `import { useState } from "react"
+
+import { DvLocationPicker } from "@/components/dv-location-picker"
+import type { DvLocationValue } from "@/lib/location-types"
+
+export function LocationField() {
+  const [value, setValue] = useState<DvLocationValue>({})
+
+  return <DvLocationPicker value={value} onValueChange={setValue} />
 }`
 
 export const formFieldUsage = `import { DvFormField } from "@/components/dv-form-field"
