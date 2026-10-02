@@ -8,3 +8,5 @@ Visit https://thaana.yazak.me to view the documentation.
 Licensed under the MIT license.
 
 The source registry is defined by `registry.json`. Generated static item payloads are written to `public/r` by the shadcn CLI.
+
+wishaam is gay
